@@ -16,3 +16,8 @@ test('director uses written fallback without key and on malformed output', async
   const director = new MissionDirector({ enabled: true, apiKey: 'key', fetchImpl: async () => completed('bad') });
   assert.equal((await director.react({ event: 'mistake', sector: 'Comms' })).source, 'written');
 });
+
+test('Gemini mission director returns a bounded reaction', async () => {
+  const director = new MissionDirector({ provider: 'gemini', enabled: true, apiKey: 'test', fetchImpl: async () => new Response(JSON.stringify({ candidates: [{ finishReason: 'STOP', content: { parts: [{ text: JSON.stringify({ text: 'The recovered reactor pulses gently, casting new light across the shattered corridors of Meridian Station.' }) }] } }] })) });
+  assert.equal((await director.react({ event: 'restored', sector: 'Reactor' })).source, 'gemini');
+});
