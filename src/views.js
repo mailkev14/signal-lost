@@ -111,7 +111,48 @@ function intelView(view, ui) {
     </div><div class="scratchpad"><label for="crew-scratchpad">${icon('terminal', 15)} PERSONAL SCRATCHPAD</label><textarea id="crew-scratchpad" maxlength="500" rows="3" placeholder="Write down clues and calculations. Only visible on this device.">${e(ui.notes || '')}</textarea><small>Private to your browser tab · Clears when the next system starts</small></div><div class="hint-area">${view.hints.map((hint, i) => `<div class="hint-card"><b>RECOVERY HINT ${i + 1}</b><p>${e(hint)}</p></div>`).join('')}<button class="quiet-button hint-button" data-action="hint" ${disabled(view.hints.length >= 2 || ui.busy || view.paused || !ui.connected && !training)}>${icon('sparkles', 16)} ${view.hints.length >= 2 ? 'All hints used' : 'Request a recovery hint'} <span>${view.hints.length}/2 &nbsp; -15 SEC</span></button></div></section>`;
 }
 function briefingView(view) {
-  return `<section class="panel briefing-panel"><div class="panel-heading"><span>${icon('signal', 17)} MISSION TRANSMISSION</span><span class="small-tag">${view.briefingLoading ? 'GENERATING...' : view.briefing.source === 'openai' ? 'OPENAI BRIEFING' : 'WRITTEN BRIEFING'}</span></div><h3>${e(view.briefing.title)}</h3><p>${e(view.briefing.story)}</p>${view.director ? `<div class="director-transmission" role="status"><strong>MISSION DIRECTOR / ${view.director.source === 'openai' ? 'LIVE AI' : view.director.source === 'loading' ? 'RECEIVING' : 'BACKUP'}</strong><p>${e(view.director.text)}</p></div>` : ''}<div class="briefing-note">${view.briefing.source === 'openai' ? 'AI-generated story. Puzzle rules and answers are deterministic.' : 'Prewritten fallback. Optional live AI changes the story, never the solution.'}</div></section>`;
+  const briefingSource = view.briefing?.source;
+  const directorSource = view.director?.source;
+
+  const isAIBriefing = ['openai', 'gemini'].includes(briefingSource);
+  const isAIDirector = ['openai', 'gemini'].includes(directorSource);
+
+  const briefingLabel = view.briefingLoading
+    ? 'GENERATING...'
+    : isAIBriefing
+      ? `${briefingSource.toUpperCase()} BRIEFING`
+      : 'WRITTEN BRIEFING';
+
+  const directorLabel = directorSource === 'loading'
+    ? 'RECEIVING'
+    : isAIDirector
+      ? 'LIVE AI'
+      : 'BACKUP';
+
+  const briefingNote = isAIBriefing
+    ? 'AI-generated story. Puzzle rules and answers are deterministic.'
+    : 'Prewritten fallback. Optional live AI changes the story, never the solution.';
+
+  return `
+    <section class="panel briefing-panel">
+      <div class="panel-heading">
+        <span>${icon('signal', 17)} MISSION TRANSMISSION</span>
+        <span class="small-tag">${briefingLabel}</span>
+      </div>
+
+      <h3>${e(view.briefing.title)}</h3>
+      <p>${e(view.briefing.story)}</p>
+
+      ${view.director ? `
+        <div class="director-transmission" role="status">
+          <strong>MISSION DIRECTOR / ${directorLabel}</strong>
+          <p>${e(view.director.text)}</p>
+        </div>
+      ` : ''}
+
+      <div class="briefing-note">${briefingNote}</div>
+    </section>
+  `;
 }
 function betweenView(view, ui) {
   const last = view.completed[view.completed.length - 1];

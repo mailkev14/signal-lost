@@ -42,3 +42,24 @@ test('hourly budget counts failed attempts and recovers after the hour', async (
   assert.equal(calls, 2);
   now = 3600001; await service.generate(); assert.equal(calls, 3);
 });
+
+test('Gemini briefing uses server-side key and structured JSON output', async () => {
+  let request;
+  const service = new BriefingService({ provider: 'gemini', enabled: true, apiKey: 'gemini-test-key', model: 'gemini-2.5-flash', fetchImpl: async (url, options) => {
+    request = { url, options, body: JSON.parse(options.body) };
+    return new Response(JSON.stringify({ candidates: [{ finishReason: 'STOP', content: { parts: [{ text: JSON.stringify({ title: 'A light in the dark', story: 'The station turns silently above the clouds. Somewhere beyond the static, a crew is listening for the last clear signal.' }) }] } }] }), { status: 200 });
+  } });
+  const result = await service.generate();
+  assert.equal(result.source, 'gemini');
+  assert.match(request.url, /gemini-2\.5-flash:generateContent$/);
+  assert.equal(request.options.headers['x-goog-api-key'], 'gemini-test-key');
+  assert.equal(request.body.generationConfig.responseMimeType, 'application/json');
+  assert.ok(!JSON.stringify(request.body).includes('gemini-test-key'));
+});
+
+test('Gemini errors and blocked responses fall back to written briefing', async () => {
+  for (const fetchImpl of [async () => new Response('quota', { status: 429 }), async () => new Response(JSON.stringify({ candidates: [{ finishReason: 'SAFETY' }] }))]) {
+    const service = new BriefingService({ provider: 'gemini', enabled: true, apiKey: 'test', fetchImpl });
+    assert.equal((await service.generate()).source, 'written');
+  }
+});
