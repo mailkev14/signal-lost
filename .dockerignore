@@ -1,0 +1,11 @@
+.git
+.env
+.env.*
+node_modules
+dist
+docs
+tests
+test-results
+scripts
+README.md
+.DS_Store

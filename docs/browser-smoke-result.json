@@ -1,0 +1,13 @@
+{
+  "result": "PASS",
+  "checks": [
+    "desktop landing",
+    "help dialog",
+    "four-system training win",
+    "replay",
+    "320/390/768px no horizontal overflow",
+    "mobile landing"
+  ],
+  "javascript_errors": [],
+  "scope": "Offline training UI in Chromium; live browser networking was not exercised by this script."
+}
