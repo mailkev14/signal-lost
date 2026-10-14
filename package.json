@@ -1,6 +1,6 @@
 {
   "name": "signal-lost",
-  "version": "1.0.0-rc1",
+  "version": "1.0.0-rc2",
   "private": true,
   "type": "module",
   "description": "A cooperative, asymmetric space-station puzzle game for 2-4 players.",

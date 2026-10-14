@@ -102,7 +102,7 @@ export function createGameServer({
         }
         limiter.check(`http:${ip}`, 400);
         if (req.method === 'GET' && path === '/api/health') {
-          return sendJson(res, 200, { ok: true, name: 'Signal Lost', version: '1.0.0-rc1', aiEnabled: briefingService.enabled, directorEnabled: missionDirector.enabled });
+          return sendJson(res, 200, { ok: true, name: 'Signal Lost', version: '1.0.0-rc2', aiEnabled: briefingService.enabled, directorEnabled: missionDirector.enabled });
         }
         if (req.method === 'POST' && path === '/api/rooms') {
           limiter.check(`create:${ip}`, 8);
