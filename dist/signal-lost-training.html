@@ -1,0 +1,1007 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b111b"><title>Signal Lost - Solo Training</title><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2048%2048%22%3E%3Crect%20width%3D%2248%22%20height%3D%2248%22%20rx%3D%2212%22%20fill%3D%22%230b111b%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23f48d70%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M12%2030a17%2017%200%200%201%2024%200M16%2023a12%2012%200%200%201%2016%200M21%2016a5%205%200%200%201%206%200%22%2F%3E%3Cpath%20d%3D%22M24%2031v6%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E%0A"><style>:root{color-scheme:dark;--bg:#0b111b;--surface:#111b27;--surface-2:#16222f;--surface-3:#1b2b39;--line:#273440;--line-soft:#1c2936;--text:#f2f3f1;--muted:#9ba9b8;--dim:#65788b;--accent:#f39073;--accent-strong:#ffac8e;--green:#98d1b1;--blue:#a4c3d9;--red:#f09292;--mono:'SFMono-Regular',Consolas,'Liberation Mono',monospace;--font:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.6;min-width:320px;background-image:radial-gradient(ellipse at 15% 35%,#16202b55,transparent 50%)}button,input{font:inherit}button,a,input{-webkit-tap-highlight-color:transparent}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.42}button,a{touch-action:manipulation}button{color:inherit}a{color:inherit;text-decoration:none}button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:4px}button:disabled:hover{transform:none}svg{flex-shrink:0;vertical-align:middle}h1,h2,h3,p{margin:0}h1,h2,h3{line-height:1.15;font-weight:580;letter-spacing:-.035em}h1{font-size:46px}h2{font-size:29px}h3{font-size:18px}p{color:var(--muted)}small{font-size:11px}.muted{color:var(--muted)}.hidden{display:none!important}.full{width:100%}.eyebrow{font:10px/1.5 var(--mono);font-weight:500;letter-spacing:1.4px;color:var(--muted);display:flex;align-items:center;gap:8px}.tiny-line{display:inline-block;width:22px;height:1px;background:var(--accent)}.pulse-dot{width:6px;height:6px;flex-shrink:0;background:var(--accent);border-radius:50%;box-shadow:0 0 12px #f3907344;display:inline-block}.small-tag{font:9px/1.3 var(--mono);letter-spacing:.7px;color:var(--muted);padding:5px 7px;border:1px solid var(--line);border-radius:4px;white-space:nowrap}.tag-accent{border-color:#f3907344;color:var(--accent);background:#f3907308}
+.site-header{max-width:1376px;margin:0 auto;padding:27px 52px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line-soft);gap:20px}.brand{display:flex;align-items:center;gap:12px;font-size:18px;font-weight:660;letter-spacing:2.2px;line-height:1.2}.brand-mark{height:42px;width:42px;display:grid;place-items:center;color:var(--accent);border:1px solid #f3907355;border-radius:11px;background:#f3907307}.brand-light{font-weight:350;margin-left:3px}.brand small{display:block;font:7px/1.5 var(--mono);letter-spacing:1.35px;color:var(--dim);margin-top:5px}.header-actions{display:flex;align-items:center;gap:15px}.status-chip{font:9px/1.5 var(--mono);letter-spacing:.75px;color:var(--muted);display:flex;align-items:center;gap:7px;margin-right:15px}.status-chip i,.expert-names i{width:5px;height:5px;border-radius:50%;background:var(--green);display:inline-block}.status-warn{color:var(--accent)}.status-warn i{background:var(--accent)}.icon-button{display:inline-grid;place-items:center;width:36px;height:36px;border:1px solid transparent;background:none;border-radius:8px;color:var(--muted)}.icon-button:hover{border-color:var(--line);color:var(--text)}.quiet-button{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:none;border:0;color:var(--muted);font-size:12px;padding:9px 0;line-height:1.4}.quiet-button:hover{color:var(--text)}.button{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:14px 21px;border-radius:7px;border:1px solid transparent;font-size:13px;font-weight:620;line-height:1.5;min-height:48px;transition:background .16s,transform .16s,box-shadow .16s}.button:hover:not(:disabled){transform:translateY(-1px)}.button-primary{background:var(--accent);color:#211812;border-color:var(--accent)}.button-primary:hover:not(:disabled){background:var(--accent-strong);box-shadow:0 4px 18px #f3907311}.button-secondary{background:#17222f;color:var(--text);border-color:var(--line)}.button-secondary:hover:not(:disabled){background:#202f3e}.button-secondary .small-tag{margin-left:auto}.button .small-tag{font-size:8px}.site-footer{max-width:1376px;margin:0 auto;padding:25px 52px 30px;border-top:1px solid var(--line-soft);display:flex;justify-content:space-between;gap:16px;font:8px/1.6 var(--mono);letter-spacing:1px;color:var(--dim)}
+.landing{max-width:1260px;margin:0 auto;padding:62px 42px 38px;display:grid;grid-template-columns:1.35fr 1fr;column-gap:78px}.hero-copy{position:relative;min-height:640px;padding-top:2px}.hero-copy h1{font-size:clamp(48px,4.6vw,68px);line-height:1.08;letter-spacing:-3px;margin:24px 0 22px;position:relative;z-index:2}.hero-copy h1>span{color:var(--accent)}.hero-description{font-size:14px;line-height:1.85;max-width:400px;position:relative;z-index:2}.mission-metrics{display:flex;gap:39px;margin-top:29px;position:relative;z-index:2}.mission-metrics div{display:flex;flex-direction:column;gap:4px}.mission-metrics b{font-family:var(--mono);font-weight:400;font-size:21px;letter-spacing:-.7px}.mission-metrics span{color:var(--dim);font:8px/1.5 var(--mono);letter-spacing:1.1px}.connection-card{background:linear-gradient(145deg,#17212d,#111925);border:1px solid #34404c;border-radius:14px;padding:27px 30px 0;box-shadow:0 22px 65px #0002;align-self:start;margin-top:13px;position:relative;overflow:hidden}.connection-card:before{content:'';position:absolute;top:0;left:30px;right:30px;height:1px;background:linear-gradient(90deg,transparent,#f3907380,transparent)}.card-topline{display:flex;align-items:center;justify-content:space-between;margin-bottom:27px;color:var(--dim)}.card-topline .eyebrow{font-size:9px}.connection-card h2{font-size:27px;letter-spacing:-.9px;margin-bottom:10px}.connection-card>p{font-size:12px}.segmented{display:flex;border:1px solid var(--line);background:#0c1520;border-radius:7px;padding:4px;margin:27px 0 24px}.segmented button{width:50%;border:0;background:none;color:var(--muted);font-size:12px;padding:10px;border-radius:4px;font-weight:500}.segmented button.selected{background:#263543;color:var(--text);box-shadow:0 2px 3px #0003}.field-label{font:9px/1.5 var(--mono);letter-spacing:.7px;display:flex;justify-content:space-between;margin:0 0 9px;color:var(--muted);gap:8px}.field-label span{font-size:8px;color:var(--dim)}.input-shell{display:flex;align-items:center;gap:11px;background:#0e1722;border:1px solid #2c3a48;border-radius:6px;padding:0 14px;color:var(--dim);margin-bottom:19px}.input-shell:focus-within{border-color:var(--accent)}.input-shell input{background:none;border:0;color:var(--text);width:100%;padding:13px 0;outline:none;font-size:14px;min-width:0}.input-shell input:focus-visible{outline:none}.input-shell input::placeholder{color:#728092}.code-input{text-transform:uppercase;font-family:var(--mono)!important;letter-spacing:2px}.connection-note{font-size:9px;color:var(--dim);display:flex;align-items:center;justify-content:center;gap:7px;margin:13px 0 24px}.divider-label{border-top:1px solid var(--line);text-align:center;height:18px;margin:4px 0 17px}.divider-label span{display:inline-block;background:#141e2a;padding:0 12px;transform:translateY(-9px);color:var(--dim);font:8px/1.5 var(--mono);letter-spacing:1px}.connection-card .training-note{font-size:10px;text-align:center;line-height:1.8;margin:14px 0 25px;color:var(--dim)}.card-footer{margin:0 -30px;padding:15px 25px;border-top:1px solid var(--line);background:#0e1823;font:8px/1.5 var(--mono);letter-spacing:.9px;color:var(--dim);display:flex;gap:9px;align-items:center}.card-footer .pulse-dot{width:4px;height:4px;background:var(--green)}.card-footer>span:last-child{margin-left:auto}.inline-note{font-size:12px;line-height:1.65;color:var(--blue);padding:12px 14px;background:#9fc7de09;border:1px solid #9fc7de24;border-radius:6px;margin:14px 0 18px}.how-strip{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);padding-top:30px;margin-top:2px;gap:30px}.how-strip article{display:flex;align-items:flex-start;gap:13px}.step-number{font:10px var(--mono);color:var(--accent);border:1px solid #f3907333;padding:7px 8px;border-radius:5px;line-height:1.2}.how-strip h3{font-size:14px;letter-spacing:-.2px;margin:2px 0 7px}.how-strip p{font-size:11px;color:var(--dim);line-height:1.6}
+.station-art{position:relative;isolation:isolate;overflow:hidden;color:#8eb0bc;width:100%;height:330px}.hero-station{position:absolute;left:31px;bottom:36px;width:460px;height:244px;opacity:.8}.planet-glow{position:absolute;left:23%;top:7%;height:90%;width:60%;background:radial-gradient(ellipse,#365c5d40,transparent 70%);filter:blur(12px);z-index:-2}.orbit{position:absolute;left:50%;top:50%;border:1px solid #7b9dac26;border-radius:50%;transform:translate(-50%,-50%) rotate(-24deg);pointer-events:none}.orbit-one{width:76%;height:70%}.orbit-two{width:99%;height:85%;border-style:dashed;opacity:.6}.orbit-three{width:45%;height:83%;transform:translate(-50%,-50%) rotate(48deg);opacity:.6}.station-drawing{width:100%;height:100%;position:relative;z-index:2}.orbital-dot{position:absolute;height:5px;width:5px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px #f3907366}.dot-one{left:11%;top:44%}.dot-two{left:82%;top:77%;width:3px;height:3px;background:var(--blue)}.orbit-label{position:absolute;font:7px var(--mono);color:#829daa;letter-spacing:1px}.label-top{top:3%;left:64%}.label-bottom{bottom:2%;left:6%;font-size:6px}.transmission-caption{position:absolute;bottom:17px;left:0;right:0;font:7px/1.5 var(--mono);letter-spacing:1px;color:var(--dim);display:flex;align-items:center;gap:8px}.transmission-caption .pulse-dot{width:4px;height:4px}.waveform{margin-left:auto;display:flex;gap:3px;align-items:center;height:14px}.waveform i{height:4px;width:2px;background:#73949d}.waveform i:nth-child(3n){height:10px}.waveform i:nth-child(4n){height:14px}.waveform i:nth-child(5n){height:7px}
+.room-main{max-width:1280px;margin:0 auto;padding:28px 42px 40px}.room-identity{display:flex;align-items:center;gap:15px;margin-bottom:27px;flex-wrap:wrap}.room-identity .eyebrow{font-size:9px}.room-code{font:15px/1 var(--mono);letter-spacing:3px;display:flex;gap:13px;align-items:center;border:1px solid var(--line);border-radius:6px;padding:11px 12px;background:#16222c;color:var(--text)}.room-code svg{color:var(--dim)}.room-code:disabled{opacity:1;cursor:default}.room-identity .quiet-button{font-size:10px}.section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;gap:22px}.section-title h1{font-size:44px;margin:12px 0}.section-title p{font-size:13px}.crew-counter{font:40px/1 var(--mono);letter-spacing:-2px;color:var(--text)}.crew-counter small{font-size:10px;letter-spacing:.5px;margin-left:6px;color:var(--dim)}.lobby-layout{display:grid;grid-template-columns:1.65fr 1fr;gap:26px;align-items:start}.lobby-main,.lobby-aside{min-width:0}.crew-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:21px}.crew-card{background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:18px;position:relative;display:flex;gap:12px;min-height:108px;align-items:flex-start}.crew-avatar{width:38px;height:38px;border-radius:9px;border:1px solid #92b9ce44;background:#92b9ce10;color:#a3c4d5;display:grid;place-items:center;flex-shrink:0;font:12px var(--mono)}.seat-1{color:var(--accent);border-color:#f3907344;background:#f3907310}.seat-2{color:#bfb6e7;border-color:#bfb6e744;background:#bfb6e710}.seat-3{color:var(--green);border-color:#98d1b144;background:#98d1b110}.crew-identity{min-width:0;flex:1}.crew-identity h3{font-size:13px;line-height:1.5;word-break:break-word;margin:0 0 1px;letter-spacing:0}.crew-identity h3 small{font:7px var(--mono);color:var(--dim);padding-left:3px}.crew-identity>span{font:7px var(--mono);color:var(--dim);letter-spacing:1px}.crew-state{position:absolute;bottom:11px;left:68px;display:flex;align-items:center;gap:5px;font:7px var(--mono);color:var(--dim);letter-spacing:.5px}.crew-state>i{width:4px;height:4px;border-radius:50%;background:var(--dim)}.is-ready{border-color:#98d1b155}.is-ready .crew-state{color:var(--green)}.is-away{opacity:.5}.empty-seat{background:#111b2755;border-style:dashed}.empty-seat .crew-avatar{border-style:dashed;background:none;border-color:var(--line);color:var(--dim);font-size:20px}.empty-seat h3{color:var(--dim)}.seat-number{font:9px var(--mono);color:var(--dim);position:absolute;right:16px;bottom:12px}.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}.lobby-action-panel{display:flex;align-items:center;gap:20px;justify-content:space-between;padding:23px}.lobby-action-panel h3{font-size:15px;letter-spacing:-.2px;margin-bottom:7px}.lobby-action-panel p{font-size:11px;max-width:300px;line-height:1.7}.lobby-action-panel .button{flex-shrink:0}.launch-row{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:20px 0 30px}.launch-checks{display:flex;flex-direction:column;gap:7px;color:var(--dim);font-size:10px}.launch-checks span{display:flex;align-items:center;gap:7px}.launch-checks .passed{color:var(--green)}.launch-row .muted{font-size:11px}.flight-instructions{padding:24px}.flight-instructions h3{font-size:20px;margin:12px 0 20px}.flight-steps{display:flex;flex-direction:column;gap:14px}.flight-steps p{font-size:12px;line-height:1.8}.flight-steps b{color:#c9d6e1;font-weight:500}.station-panel{margin-bottom:20px;background:linear-gradient(155deg,#182833,#101923);position:relative}.lobby-station{height:245px;opacity:.7}.station-panel-caption{padding:0 25px 23px}.station-panel-caption h3{font-size:22px;line-height:1.3;margin:10px 0 0}.panel-heading{height:53px;min-height:53px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 22px;border-bottom:1px solid var(--line);font:9px/1.5 var(--mono);letter-spacing:1px;color:var(--muted)}.panel-heading>span:first-child{display:flex;align-items:center;gap:9px}.panel-heading svg{color:var(--dim)}.panel-heading .small-tag{font-size:8px}.online-count{font:8px var(--mono);color:var(--green)}.chat-scroll{height:165px;overflow-y:auto;padding:15px 20px;scrollbar-width:thin;scrollbar-color:var(--line) transparent;display:flex;flex-direction:column;gap:11px}.chat-empty{font-size:12px;line-height:1.9;color:var(--dim);margin:auto 0}.chat-message{font-size:12px;line-height:1.6;display:flex;gap:10px;overflow-wrap:anywhere}.chat-name{font:9px/1.8 var(--mono);color:var(--blue);min-width:50px;max-width:94px;flex-shrink:0;overflow-wrap:anywhere;padding-top:1px}.own-message .chat-name{color:var(--accent)}.chat-form{display:flex;margin:0 17px 10px;background:#0c1621;border:1px solid var(--line);border-radius:6px;overflow:hidden}.chat-form:focus-within{border-color:var(--accent)}.chat-form input{padding:11px 12px;width:100%;background:none;color:var(--text);font-size:12px;border:0;outline:none;min-width:0}.chat-form input::placeholder{color:var(--dim)}.chat-form input:focus-visible{outline:none}.chat-form button{width:42px;flex-shrink:0;border:0;border-left:1px solid var(--line);background:#182735;color:var(--accent)}.chat-footnote{padding:0 18px 12px;font-size:9px;color:var(--dim)}
+.mission-title-row{display:flex;align-items:center;justify-content:space-between;gap:45px;margin-bottom:26px}.mission-title-row h1{font-size:38px;margin:10px 0 11px}.mission-title-row p{font-size:12px;line-height:1.8;max-width:715px}.mission-timer{min-width:160px;text-align:right}.mission-timer>span{font:8px var(--mono);letter-spacing:1.3px;color:var(--dim);display:block;margin-bottom:6px}.mission-timer>b{font:52px/1.2 var(--mono);color:var(--accent);letter-spacing:-3px;font-variant-numeric:tabular-nums}.timer-meter{height:3px;width:136px;background:var(--line);border-radius:3px;margin:10px 0 0 auto;overflow:hidden}.timer-meter i{height:100%;display:block;background:var(--accent);transition:width .3s}.critical>b{color:var(--red)}.critical .timer-meter i{background:var(--red)}.system-progress{display:grid;grid-template-columns:repeat(4,1fr);margin-bottom:24px;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#101a25}.system-step{display:flex;align-items:center;gap:12px;min-height:75px;padding:16px 20px;border-right:1px solid var(--line);color:var(--dim)}.system-step:last-child{border-right:0}.system-step-icon{font:10px var(--mono);width:28px;height:28px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;flex-shrink:0}.system-step b{font-size:12px;font-weight:500;display:block;line-height:1.3}.system-step small{font:7px var(--mono);letter-spacing:.6px;display:block;margin-top:5px}.system-step.active{background:#f3907308}.system-step.active b{color:var(--text)}.system-step.active small{color:var(--accent)}.system-step.active .system-step-icon{border-color:#f3907355;color:var(--accent)}.system-step.complete{color:var(--green);background:#98d1b105}.system-step.complete .system-step-icon{border-color:#98d1b144}.system-dot{width:4px;height:4px;border-radius:50%;background:var(--line);margin-left:auto}.active .system-dot{background:var(--accent)}.complete .system-dot{background:var(--green)}.game-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:23px;align-items:start}.console-readout{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(--line-soft);background:#0d1722}.console-readout .eyebrow{font-size:8px;color:var(--dim);margin-bottom:7px}.console-readout b{font:12px var(--mono);letter-spacing:.8px;color:var(--blue)}.console-controls{padding:22px 24px}.sequence-slots{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:22px}.sequence-slot{height:89px;border:1px dashed #344654;border-radius:6px;background:#0c1621;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding-top:8px;color:var(--accent)}.sequence-slot>span:last-child{font:7px var(--mono);letter-spacing:.5px}.sequence-slot .slot-index{font:7px var(--mono);position:absolute;top:6px;left:7px;color:var(--dim)}.sequence-slot .slot-empty{font-size:21px!important;color:var(--line)}.sequence-slot.filled{border:1px solid #f3907366;background:#f3907307}.glyph-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.glyph-button{height:92px;border:1px solid #344654;border-radius:6px;background:#1a2936;color:#b9cedb;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:11px;transition:background .15s,border-color .15s}.glyph-button>span{font:8px var(--mono);letter-spacing:1.1px}.glyph-button:hover:not(:disabled){background:#263b4a;border-color:#6c889b}.glyph-button.selected{border-color:#f3907388;background:#f390730c;color:var(--accent)}.console-buttons{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:24px}.console-buttons .quiet-button{font-size:10px}.console-buttons .button{font-size:12px;padding:12px 17px;min-height:44px}.console-bottom{padding:12px 17px;border-top:1px solid var(--line);background:#0f1924;font:7px/1.5 var(--mono);letter-spacing:.6px;color:var(--dim);display:flex;align-items:center;justify-content:center;gap:7px}.intel-body{padding:20px 23px}.intel-card{position:relative;border-left:2px solid #7b9bae55;background:linear-gradient(90deg,#91bbd808,transparent);padding:14px 15px 15px;margin-bottom:14px;border-radius:0 5px 5px 0}.intel-index{display:flex;align-items:center;gap:6px;color:var(--dim);font:7px var(--mono);letter-spacing:.8px;margin-bottom:10px}.intel-card h3{font-size:14px;letter-spacing:-.15px;margin-bottom:8px;color:var(--blue)}.intel-card p{font-size:13px;line-height:1.85;color:#c7d2dc;overflow-wrap:anywhere}.intel-tip{font-size:9px;line-height:1.8;color:var(--dim);padding:3px 2px}.hint-area{padding:4px 22px 7px;border-top:1px solid var(--line-soft);background:#0e1823}.hint-button{width:100%;justify-content:flex-start;font-size:10px;min-height:42px}.hint-button>span{margin-left:auto;font:8px var(--mono);color:var(--dim)}.hint-card{padding:13px 0;border-bottom:1px solid var(--line)}.hint-card b{font:8px var(--mono);letter-spacing:.8px;color:var(--accent)}.hint-card p{font-size:12px;line-height:1.8;margin-top:7px}.operator-instructions{padding:21px 10px 16px}.operator-instructions>svg{color:var(--blue);margin-bottom:24px}.operator-instructions h3{font-size:24px;line-height:1.3;margin-bottom:15px}.operator-instructions p{font-size:13px;line-height:1.9;max-width:340px}.expert-names{display:flex;flex-wrap:wrap;gap:12px;margin-top:25px;margin-bottom:8px}.expert-names span{font:9px var(--mono);display:flex;align-items:center;gap:6px;color:var(--muted);overflow-wrap:anywhere}.expert-names i.offline-dot{background:var(--red)}.locked-display{padding:52px 32px;text-align:center;min-height:410px;display:flex;align-items:center;flex-direction:column;justify-content:center;background:radial-gradient(ellipse,#1e334555,transparent 65%)}.locked-display>svg{color:#6b889e;margin-bottom:28px}.locked-display h3{font-size:25px;line-height:1.4;margin-bottom:15px;max-width:370px;overflow-wrap:anywhere}.locked-display p{font-size:12px;line-height:1.9}.locked-display>.eyebrow{font-size:7px;color:var(--dim)}.standby-wave{height:36px;display:flex;align-items:center;gap:5px;margin:35px 0 19px}.standby-wave i{width:3px;height:8px;background:#6b93a888;border-radius:2px}.standby-wave i:nth-child(2n){height:15px}.standby-wave i:nth-child(3n){height:29px}.standby-wave i:nth-child(5n){height:36px}.numeric-display{background:#0b1520;border:1px solid #2b414f;border-radius:8px;padding:40px 25px 32px;text-align:center;margin:6px 0 28px}.numeric-display label{font:9px var(--mono);letter-spacing:1.5px;color:var(--dim)}.digital-input-wrap{display:flex;align-items:center;justify-content:center;gap:13px;margin:26px 0 20px}.digital-input-wrap input{width:240px;max-width:80%;background:transparent;border:0;border-bottom:1px solid var(--line);color:var(--blue);font:56px/1.5 var(--mono);letter-spacing:10px;text-align:center;min-width:0;padding:0 0 7px 10px;outline:none}.digital-input-wrap input::placeholder{color:#345062}.digital-input-wrap input:focus{border-color:var(--accent)}.digital-input-wrap>span{font:13px var(--mono);color:var(--dim)}.digital-input-wrap>svg{color:var(--dim)}.numeric-caption{font:8px var(--mono);letter-spacing:1px;color:var(--dim)}.coordinate-grid{display:grid;grid-template-columns:20px repeat(5,1fr);gap:7px}.grid-label{display:grid;place-items:center;font:9px var(--mono);color:var(--dim);min-height:14px}.coordinate{aspect-ratio:1;border:1px solid #2d4050;background:#142433;border-radius:5px;position:relative;color:var(--accent);display:grid;place-items:center;min-width:0}.coordinate:hover:not(:disabled){border-color:#7590a7;background:#233a4c}.coordinate.selected{border-color:var(--accent);background:#f3907315}.coordinate small{position:absolute;font:6px var(--mono);color:#668092;bottom:4px;left:5px}.coordinate.selected small{color:var(--accent)}.grid-star{width:3px;height:3px;background:#7091a5;border-radius:50%}.coordinate:nth-child(3n) .grid-star{width:2px;height:2px;opacity:.5}.coordinate-readout{font:8px var(--mono);letter-spacing:1px;color:var(--dim);display:flex;align-items:center;gap:9px}.coordinate-readout b{font-size:22px;color:var(--blue)}.event-ticker{display:flex;align-items:center;gap:10px;font-size:11px;margin:16px 0 23px;padding:12px 17px;border:1px solid var(--line);border-radius:7px;background:#0e1925;color:var(--muted)}.event-success{border-color:#98d1b130;color:var(--green)}.event-error{border-color:#f0929255;color:var(--red);background:#f0929208}.event-time{margin-left:auto;flex-shrink:0;color:var(--dim);font:7px var(--mono);letter-spacing:.6px}.comms-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:23px}.briefing-panel h3{font-size:18px;line-height:1.35;margin:21px 24px 12px}.briefing-panel>p{font-size:12px;line-height:1.85;margin:0 24px 16px}.briefing-note{font-size:8px;line-height:1.8;color:var(--dim);margin:0 24px 20px;padding-top:12px;border-top:1px solid var(--line-soft)}.training-comms h3{margin:24px 23px 12px;font-size:18px}.training-comms>p{font-size:12px;line-height:1.85;margin:0 23px 17px}.training-comms>p.muted{font-size:10px;color:var(--dim);padding-top:10px;border-top:1px solid var(--line-soft)}.pause-banner,.connection-warning{display:flex;align-items:center;gap:13px;padding:14px 18px;border:1px solid #f3907355;border-radius:7px;margin-bottom:22px;background:#f390730a;color:var(--accent);font-size:12px;line-height:1.8}.connection-warning{color:var(--red);border-color:#f0929255}.pause-banner b{font-weight:600}.between-panel{text-align:center;padding:40px 30px;display:flex;align-items:center;flex-direction:column;background:radial-gradient(ellipse at center top,#98d1b10c,transparent 60%),var(--surface)}.success-orbit{display:grid;place-items:center;border-radius:50%;width:76px;height:76px;border:1px solid #98d1b155;color:var(--green);background:#98d1b10c;box-shadow:0 0 0 10px #98d1b104;margin:5px 0 30px}.between-panel>.eyebrow{color:var(--green);font-size:9px}.between-panel h2{font-size:35px;margin:14px 0}.between-panel>p{font:12px/1.7 var(--mono);color:var(--muted)}.next-system{display:flex;flex-direction:column;gap:9px;margin:24px 0;padding:22px 40px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);min-width:50%}.next-system>span{font:8px var(--mono);color:var(--dim);letter-spacing:1px}.next-system>b{font-size:19px;font-weight:500}.next-system>small{color:var(--dim);font-size:11px}.between-note{margin-top:15px;font-size:9px;color:var(--dim);display:flex;gap:6px;align-items:center}.result-panel{text-align:center;padding:50px 40px;position:relative;isolation:isolate}.result-glow{position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 25%,#98d1b112,transparent 55%)}.result-lost .result-glow{background:radial-gradient(ellipse at 50% 25%,#f0929212,transparent 55%)}.result-emblem{margin:0 auto 25px;width:85px;height:85px;border:1px solid #98d1b144;border-radius:50%;display:grid;place-items:center;color:var(--green);box-shadow:0 0 0 12px #98d1b104,0 0 0 24px #98d1b103}.result-lost .result-emblem{color:var(--red);border-color:#f0929244;box-shadow:none}.result-panel>.eyebrow{justify-content:center;font-size:8px;margin-top:35px}.result-panel h1{font-size:61px;line-height:1.04;letter-spacing:-2.8px;margin:20px 0}.result-won h1 span{color:var(--green)}.result-lost h1 span{color:var(--red)}.result-panel>p{font-size:13px;max-width:510px;margin:0 auto}.result-stats{display:flex;justify-content:center;gap:40px;margin:34px auto 28px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:24px 15px;max-width:680px}.result-stats div{display:flex;flex-direction:column;gap:9px}.result-stats b{font:23px var(--mono);font-weight:400;color:var(--text)}.result-stats span{font:7px var(--mono);color:var(--dim);letter-spacing:.9px}.result-crew{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;margin:20px 0 31px}.result-crew span{display:flex;align-items:center;gap:7px;font:10px var(--mono);color:var(--muted)}.result-crew svg{color:var(--green)}.result-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}.result-panel>.result-mode-note{font:8px var(--mono);color:var(--dim);margin-top:22px;letter-spacing:1px}
+#toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%);z-index:20;max-width:min(90vw,540px);font-size:13px;padding:15px 20px;border-radius:8px;border:1px solid #91bbd855;background:#1b2c3d;box-shadow:0 8px 35px #0006;color:var(--text);line-height:1.6}#toast.toast-error{border-color:#f0929288;background:#31232b}dialog{border:1px solid #435363;border-radius:13px;background:var(--surface);color:var(--text);max-width:570px;width:calc(100% - 35px);padding:38px;max-height:90vh;box-shadow:0 25px 100px #0008}dialog::backdrop{background:#030811ce;backdrop-filter:blur(5px)}.dialog-close{position:absolute;right:17px;top:15px}dialog h2{font-size:31px;line-height:1.2;margin:15px 0 20px}dialog>p{font-size:13px;line-height:1.9}dialog>p b{color:var(--text);font-weight:500}.help-sections{display:flex;flex-direction:column;gap:22px;margin:25px 0}.help-sections section{display:flex;gap:17px}.help-sections section>span{font:10px var(--mono);color:var(--accent);padding-top:3px}.help-sections h3{font-size:16px;margin-bottom:8px;letter-spacing:-.2px}.help-sections p{font-size:12px;line-height:1.8}.loading-dot{width:12px;height:12px;border:2px solid #21181244;border-top-color:#211812;border-radius:50%;animation:spin 1s linear infinite}.startup-loading{max-width:500px;margin:90px auto;text-align:center;padding:30px}.startup-loading h2{margin:22px 0 12px}.startup-loading .loading-dot{width:25px;height:25px;margin:auto;border-color:var(--line);border-top-color:var(--accent)}.startup-loading button{margin-top:30px}@keyframes spin{to{transform:rotate(360deg)}}
+@media(min-width:1500px){.landing{padding-top:78px;padding-bottom:45px}.hero-copy{min-height:674px}.connection-card{margin-top:21px}.hero-station{height:265px;bottom:41px}}
+@media(max-width:1100px){.site-header{padding:23px 30px}.landing{column-gap:38px;padding:45px 30px 32px}.hero-copy h1{font-size:56px}.connection-card{padding-left:23px;padding-right:23px}.card-footer{margin-left:-23px;margin-right:-23px;padding-left:22px;padding-right:22px}.hero-station{width:400px;left:0}.mission-metrics{gap:25px}.site-footer{padding-left:30px;padding-right:30px}.room-main{padding-left:30px;padding-right:30px}.lobby-layout{grid-template-columns:1.5fr 1fr;gap:20px}.crew-card{padding:15px 12px;gap:8px}.crew-state{left:59px}.lobby-action-panel{padding:19px;gap:12px}.lobby-action-panel .button{padding:12px 15px}.system-step{padding:15px 12px;gap:8px}.game-layout,.comms-layout{gap:18px}.panel-heading{padding:0 17px}.console-controls{padding:20px}.intel-body{padding:19px}.hint-area{padding-left:18px;padding-right:18px}.console-buttons .button{font-size:11px;padding:12px 14px}}
+@media(max-width:850px){.header-actions{gap:7px}.status-chip{font-size:8px;margin-right:7px}.landing{grid-template-columns:1fr 1fr;column-gap:23px}.hero-copy h1{font-size:46px;letter-spacing:-2px}.hero-copy{min-height:640px}.hero-description{font-size:12px}.hero-description br:first-child{display:none}.mission-metrics{gap:21px}.mission-metrics b{font-size:18px}.mission-metrics span{font-size:6px}.hero-station{width:340px;left:-10px;bottom:48px;height:225px}.transmission-caption{font-size:6px}.waveform{display:none}.connection-card{padding:23px 20px 0}.connection-card h2{font-size:24px}.connection-card>p{font-size:11px}.connection-card .field-label span{display:none}.card-footer{margin:0 -20px;padding:13px 15px;font-size:7px}.how-strip{gap:18px}.how-strip article{gap:9px}.how-strip h3{font-size:12px}.how-strip p{font-size:10px}.step-number{font-size:8px;padding:6px}.lobby-layout{grid-template-columns:1fr}.lobby-aside{display:grid;grid-template-columns:1fr 1fr;gap:20px}.station-panel{margin:0}.lobby-station{height:190px}.lobby-action-panel{padding:22px}.mission-title-row{gap:22px}.mission-title-row h1{font-size:32px}.mission-title-row .eyebrow{font-size:8px}.mission-timer{min-width:125px}.mission-timer>b{font-size:42px}.timer-meter{width:107px}.game-layout{grid-template-columns:1fr 1fr}.glyph-button{height:76px}.glyph-button>svg{height:27px;width:27px}.sequence-slot{height:80px}.sequence-slot>svg{width:23px;height:23px}.console-controls{padding:16px}.console-buttons{align-items:stretch;flex-direction:column;gap:7px;margin-top:15px}.console-buttons .quiet-button{order:2;font-size:11px}.console-buttons .button{font-size:12px;order:1}.console-buttons .coordinate-readout{justify-content:center;margin:6px 0 10px}.panel-heading{font-size:8px;padding:0 14px;letter-spacing:.5px}.panel-heading .small-tag{font-size:6px;padding:4px}.console-readout{padding:16px}.console-readout b{font-size:10px}.console-bottom{font-size:6px;letter-spacing:.2px}.intel-body{padding:15px}.intel-card{padding:12px}.intel-card p{font-size:12px}.operator-instructions{padding:15px 0}.operator-instructions h3{font-size:22px}.operator-instructions p{font-size:12px}.hint-button{font-size:9px;gap:5px;flex-wrap:wrap}.hint-button>span{font-size:7px}.digital-input-wrap input{font-size:40px;letter-spacing:7px}.digital-input-wrap{gap:5px}.numeric-display{padding:35px 12px}.digital-input-wrap>span{font-size:10px}.numeric-caption{font-size:6px}.coordinate-grid{gap:5px;grid-template-columns:13px repeat(5,1fr)}.system-step{gap:8px;padding:13px 10px}.system-step b{font-size:10px}.system-step small{font-size:6px;letter-spacing:.3px}.system-step-icon{width:24px;height:24px;font-size:9px}.system-dot{display:none}.locked-display{padding:45px 22px;min-height:430px}.locked-display h3{font-size:23px}.result-stats{gap:28px}.briefing-panel h3{margin-left:18px;margin-right:18px}.briefing-panel>p,.briefing-note{margin-left:18px;margin-right:18px}}
+@media(max-width:660px){.site-header{padding:18px 21px}.brand{font-size:16px;gap:9px;letter-spacing:1.8px}.brand-mark{width:36px;height:36px;border-radius:8px}.brand small{font-size:6px;letter-spacing:.9px}.header-actions .status-chip{display:none}.header-actions{gap:2px}.icon-button{height:33px;width:33px}.leave-button{font-size:10px;margin-left:7px}.leave-button svg{width:15px}.landing{display:flex;flex-direction:column;padding:38px 22px 25px}.hero-copy{min-height:auto;padding-bottom:0}.hero-copy>.eyebrow{font-size:8px;letter-spacing:1.05px}.hero-copy h1{font-size:clamp(45px,10.5vw,61px);line-height:1.05;letter-spacing:-2.1px;margin:25px 0 21px}.hero-description{font-size:13px;line-height:1.8;max-width:360px}.hero-description br:first-child{display:initial}.mission-metrics{gap:33px;margin-top:26px}.mission-metrics b{font-size:21px}.mission-metrics span{font-size:7px}.hero-station{position:relative;bottom:auto;left:auto;width:100%;height:210px;margin:0 auto;max-width:380px}.transmission-caption{position:relative;bottom:auto;padding:5px 0 0;font-size:6px;justify-content:center}.connection-card{margin-top:29px;padding:24px 23px 0}.connection-card h2{font-size:28px}.connection-card>p{font-size:12px}.card-topline{margin-bottom:20px}.connection-card .field-label span{display:initial}.field-label{font-size:9px}.field-label span{font-size:7px}.card-footer{margin:0 -23px;padding:15px 23px;font-size:7px}.segmented{margin-top:23px}.connection-card .training-note{font-size:11px}.how-strip{display:flex;flex-direction:column;gap:23px;margin-top:32px;padding:28px 1px 7px}.how-strip article{gap:14px}.how-strip h3{font-size:15px}.how-strip p{font-size:12px}.step-number{font-size:10px;padding:8px}.site-footer{padding:22px;flex-direction:column;gap:7px;font-size:7px}.room-main{padding:23px 19px 30px}.room-identity{gap:10px;margin-bottom:25px}.room-identity>.eyebrow{font-size:7px;letter-spacing:.9px}.room-code{font-size:13px;padding:10px;letter-spacing:2px;gap:8px}.room-identity .quiet-button{font-size:9px}.section-title{margin-bottom:23px;align-items:flex-start;gap:12px}.section-title h1{font-size:35px;margin:12px 0}.section-title>.crew-counter{font-size:30px;display:flex;flex-direction:column;align-items:flex-end;gap:8px;margin-top:20px}.crew-counter small{font-size:7px;margin:0;white-space:nowrap}.section-title .eyebrow{font-size:8px}.section-title p{font-size:12px}.crew-grid{gap:10px}.crew-card{padding:13px 10px;gap:8px;min-height:111px}.crew-avatar{width:30px;height:30px;font-size:10px;border-radius:7px}.crew-identity h3{font-size:11px}.crew-identity>span{font-size:6px;letter-spacing:.6px}.crew-identity h3 small{font-size:6px}.crew-state{bottom:14px;left:14px;font-size:7px}.empty-seat .crew-identity>span{font-size:5px}.seat-number{right:10px}.lobby-action-panel{padding:20px;flex-direction:column;align-items:stretch;gap:17px}.lobby-action-panel h3{font-size:16px}.lobby-action-panel p{font-size:12px;max-width:none}.launch-row{gap:12px;align-items:center;margin:19px 0 24px}.launch-row .button{font-size:12px;min-height:45px;padding:12px 15px}.launch-checks{font-size:9px}.flight-instructions{padding:22px}.flight-instructions h3{font-size:21px}.lobby-aside{display:flex;flex-direction:column;gap:20px}.station-panel{display:none}.chat-scroll{height:160px}.mission-title-row{gap:10px;align-items:flex-start;position:relative;padding-top:3px;flex-wrap:wrap;margin-bottom:21px}.mission-title-row>div:first-child{width:100%}.mission-title-row h1{font-size:30px;margin:12px 0}.mission-title-row p{font-size:11px;line-height:1.9;padding-right:0}.mission-title-row .eyebrow{font-size:7px;letter-spacing:.5px;max-width:75%}.mission-timer{position:relative;text-align:left;min-width:0;display:flex;align-items:center;width:100%;gap:15px;margin-top:5px}.mission-timer>span{font-size:7px;letter-spacing:1px;margin:0;order:1}.mission-timer>b{font-size:36px;letter-spacing:-1.5px;order:0}.timer-meter{margin:0 0 0 auto;width:105px;order:2}.system-progress{margin-bottom:20px}.system-step{padding:12px 6px;gap:6px;min-height:70px;flex-direction:column;align-items:center;text-align:center}.system-step-icon{width:22px;height:22px;font-size:8px}.system-step b{font-size:9px}.system-step small{font-size:5px;letter-spacing:.2px;margin-top:3px}.system-step-icon svg{width:13px;height:13px}.game-layout,.comms-layout{display:flex;flex-direction:column;gap:19px}.game-layout>.panel,.comms-layout>.panel{width:100%}.console-controls{padding:22px}.console-readout{padding:18px 22px}.console-readout b{font-size:11px}.panel-heading{padding:0 19px;height:52px;font-size:9px}.panel-heading .small-tag{font-size:7px;padding:5px}.sequence-slots{gap:8px}.sequence-slot{height:85px}.sequence-slot>svg{width:28px;height:28px}.sequence-slot>span:last-child{font-size:7px}.glyph-grid{gap:10px}.glyph-button{height:88px}.glyph-button>svg{width:31px;height:31px}.glyph-button>span{font-size:8px}.console-buttons{flex-direction:row;align-items:center;gap:12px;margin-top:24px}.console-buttons .quiet-button{order:0;font-size:10px}.console-buttons .button{font-size:11px;padding:12px 13px;gap:8px}.console-bottom{font-size:6px;letter-spacing:.4px;padding:13px}.intel-body{padding:20px}.intel-card{padding:13px 16px}.intel-card h3{font-size:15px}.intel-card p{font-size:13px;line-height:1.85}.intel-index{font-size:7px}.intel-tip{font-size:9px}.operator-instructions{padding:12px 5px 20px}.operator-instructions>svg{margin-bottom:18px;width:30px;height:30px}.operator-instructions h3{font-size:24px}.operator-instructions p{font-size:12px}.hint-area{padding:7px 20px}.hint-button{font-size:10px;gap:8px}.hint-button>span{font-size:7px}.locked-console{order:2}.locked-display{padding:27px 24px;min-height:265px}.locked-display h3{font-size:21px}.locked-display>svg{width:29px;height:29px;margin-bottom:16px}.locked-display p{font-size:12px}.standby-wave{margin:20px 0 16px;height:26px}.standby-wave i:nth-child(3n){height:20px}.standby-wave i:nth-child(5n){height:26px}.locked-display>.eyebrow{font-size:6px}.event-ticker{font-size:11px;line-height:1.8;padding:11px 14px;margin:17px 0 20px}.event-time{display:none}.comms-layout .chat-scroll{height:185px}.briefing-panel h3{font-size:20px;margin:23px 22px 14px}.briefing-panel>p{font-size:12px;line-height:1.9;margin:0 22px 20px}.briefing-note{font-size:9px;margin:0 22px 22px}.training-comms h3{font-size:19px}.numeric-display{padding:34px 16px}.digital-input-wrap input{font-size:51px;letter-spacing:10px}.digital-input-wrap>span{font-size:12px}.numeric-caption{font-size:8px}.coordinate-grid{grid-template-columns:18px repeat(5,1fr);gap:7px}.coordinate small{font-size:7px}.coordinate-readout{font-size:8px}.between-panel{padding:32px 22px}.between-panel h2{font-size:29px;line-height:1.2}.between-panel>p{font-size:11px}.next-system{width:100%;padding:23px 15px}.between-panel>.eyebrow{font-size:8px}.result-panel{padding:39px 22px}.result-panel h1{font-size:49px;margin:20px 0;letter-spacing:-2px}.result-panel>.eyebrow{font-size:6px;letter-spacing:1px}.result-panel>p{font-size:12px;line-height:1.85}.result-stats{display:grid;grid-template-columns:1fr 1fr;gap:25px;margin:28px auto 22px;padding:23px 10px}.result-stats b{font-size:24px}.result-stats span{font-size:7px}.result-crew{gap:14px;margin-bottom:24px}.result-crew span{font-size:9px}.result-actions{flex-direction:column}.result-actions .button{width:100%;font-size:12px}.result-panel>.result-mode-note{font-size:7px;line-height:1.8}.pause-banner,.connection-warning{font-size:11px;padding:13px;line-height:1.8;gap:11px}dialog{padding:32px 24px;max-height:88vh}dialog h2{font-size:27px;margin-top:16px}.dialog-close{right:12px;top:10px}.help-sections p{font-size:12px}.startup-loading{margin:70px 20px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}.button:hover:not(:disabled){transform:none}}
+@media(max-width:380px){.site-header{padding:16px;gap:8px}.brand{font-size:14px;letter-spacing:1.3px;gap:8px}.brand-mark{width:32px;height:32px}.brand small{font-size:5px;letter-spacing:.6px}.header-actions{gap:0}.leave-button{margin-left:2px;padding:0 6px;min-height:33px}.leave-button span{display:none}.connection-card .field-label span{font-size:6px}.console-buttons{flex-direction:column;align-items:stretch;gap:8px}.console-buttons .button{order:0}.console-buttons .quiet-button{order:1}.mission-title-row h1{font-size:28px}}
+
+/* V0.2: stronger mission urgency and refined interactive affordances. */
+.mission-timer.critical{border-color:#f0929280;box-shadow:0 0 0 1px #f0929220,0 0 32px #f0929218}
+.mission-timer.critical>b{color:var(--red);text-shadow:0 0 18px #f0929240}
+.mission-timer.critical .timer-meter i{background:var(--red)}
+.crew-card.is-ready{box-shadow:inset 0 0 0 1px #98d1b118}
+.intel-card{transition:border-color .18s ease,background .18s ease}
+.intel-card:hover{border-color:#a4c3d96b;background:#1b2c3a}
+.room-code:hover{filter:brightness(1.18)}
+@media(prefers-reduced-motion:reduce){.intel-card{transition:none}}
+
+/* V0.3: cinematic telemetry, responsive animation, high-contrast interaction */
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse 70% 55% at 95% 0%,#4c728217,transparent),radial-gradient(ellipse 55% 55% at 0% 100%,#f390730b,transparent)}
+.connection-card{box-shadow:0 30px 90px #0008,0 0 0 1px #ffffff07;transition:box-shadow .3s ease,border-color .3s ease}
+.connection-card:hover{border-color:#546678;box-shadow:0 30px 100px #0009,0 0 55px #f390730b}
+.station-art .orbit-one{animation:station-drift 28s linear infinite}
+.station-art .orbit-two{animation:station-drift-reverse 43s linear infinite}
+.station-art .orbit-three{animation:station-drift 34s linear infinite}
+.station-drawing{animation:station-float 7s ease-in-out infinite;filter:drop-shadow(0 0 15px #91d4de23)}
+.waveform i,.standby-wave i{transform-origin:center;animation:signal-wave 1.5s ease-in-out infinite}
+.waveform i:nth-child(3n),.standby-wave i:nth-child(3n){animation-delay:-.4s}
+.waveform i:nth-child(4n),.standby-wave i:nth-child(4n){animation-delay:-.9s}
+.status-chip i,.pulse-dot{animation:beacon-pulse 2.8s ease-in-out infinite}
+.mission-atmosphere{display:flex;align-items:center;gap:12px;margin:0 0 17px;padding:10px 14px;border:1px solid #2e4852;border-radius:7px;background:linear-gradient(90deg,#162934,#0d1823);color:#a9c9d3;font:9px/1.3 var(--mono);letter-spacing:1px}
+.atmosphere-beacon{width:7px;height:7px;border-radius:50%;background:#98d1b1;box-shadow:0 0 14px #98d1b177;animation:beacon-pulse 1.8s ease-in-out infinite;flex-shrink:0}
+.atmosphere-track{display:flex;align-items:center;gap:4px;height:20px;margin-left:auto}
+.atmosphere-track i{display:block;width:3px;height:5px;border-radius:2px;background:#98d1b1;animation:signal-wave 1.2s ease-in-out infinite}
+.atmosphere-track i:nth-child(3n){height:16px;animation-delay:-.5s}.atmosphere-track i:nth-child(4n){height:11px;animation-delay:-.8s}
+.mission-atmosphere>span:last-child{color:#7195a4}
+.console-panel,.intel-panel,.comms-panel{transition:border-color .2s,box-shadow .2s}
+.console-panel:focus-within,.intel-panel:focus-within{border-color:#b4d6e066;box-shadow:0 0 0 1px #b4d6e011}
+.glyph-button,.coordinate,.sequence-slot{transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease}
+.glyph-button:hover:not(:disabled),.coordinate:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 6px 20px #0004}
+.event-ticker{animation:event-arrive .32s ease-out}
+.result-emblem{animation:result-rise .8s ease-out both}
+.result-won .result-glow{animation:result-breathe 5s ease-in-out infinite}
+@keyframes station-drift{from{transform:translate(-50%,-50%) rotate(-24deg)}to{transform:translate(-50%,-50%) rotate(336deg)}}
+@keyframes station-drift-reverse{from{transform:translate(-50%,-50%) rotate(-24deg)}to{transform:translate(-50%,-50%) rotate(-384deg)}}
+@keyframes station-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes signal-wave{0%,100%{transform:scaleY(.45);opacity:.45}50%{transform:scaleY(1.35);opacity:1}}
+@keyframes beacon-pulse{0%,100%{opacity:.65}50%{opacity:1;box-shadow:0 0 16px #98d1b177}}
+@keyframes event-arrive{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@keyframes result-rise{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+@keyframes result-breathe{0%,100%{opacity:.5}50%{opacity:1}}
+@media(max-width:600px){.mission-atmosphere{font-size:7px;letter-spacing:.4px;gap:7px;flex-wrap:wrap}.atmosphere-track{gap:3px}.atmosphere-track i{width:2px}.mission-atmosphere>span:last-child{width:100%;padding-left:18px}}
+@media(prefers-reduced-motion:reduce){.station-art .orbit-one,.station-art .orbit-two,.station-art .orbit-three,.station-drawing,.waveform i,.standby-wave i,.status-chip i,.pulse-dot,.atmosphere-beacon,.atmosphere-track i,.event-ticker,.result-emblem,.result-won .result-glow{animation:none!important}}
+
+.director-transmission{margin-top:16px;padding:14px 16px;border:1px solid rgba(91,223,207,.35);border-left:3px solid #5bdfcf;border-radius:9px;background:rgba(16,73,79,.24)}.director-transmission strong{display:block;font-size:10px;letter-spacing:.17em;color:#74e6d8;margin-bottom:7px}.director-transmission p{margin:0;line-height:1.55}
+
+/* v0.5: private scratchpad and post-mission performance feedback */
+.scratchpad { padding: 18px 20px; border-top: 1px solid rgba(122,196,215,.18); display: grid; gap: 9px; }
+.scratchpad label { font-size: .76rem; letter-spacing: .12em; font-weight: 700; display: flex; gap: 8px; align-items: center; }
+.scratchpad textarea { width: 100%; min-height: 86px; resize: vertical; border: 1px solid rgba(122,196,215,.35); border-radius: 10px; padding: 12px; color: #e5fbff; background: rgba(3,16,29,.75); font: inherit; line-height: 1.5; }
+.scratchpad textarea:focus { outline: 2px solid #71d4ec; outline-offset: 2px; }
+.scratchpad small { opacity: .7; }
+.mission-grade { margin: 24px auto; padding: 16px 20px; border: 1px solid rgba(122,196,215,.35); border-radius: 12px; max-width: 360px; display: grid; gap: 6px; text-align: center; background: rgba(12,45,65,.45); }
+.mission-grade span { letter-spacing: .16em; font-size: .7rem; opacity: .8; }
+.mission-grade strong { font-size: 1.5rem; letter-spacing: .08em; }
+.mission-grade b { font-size: 1rem; }
+</style></head><body><div id="app"></div><noscript>JavaScript is required for the training simulation.</noscript><script type="module">window.__SIGNAL_OFFLINE__ = true;
+
+// --- shared/puzzles.js ---
+/** Pure puzzle generation; answers are NEVER included in network views. */
+const SYMBOLS = Object.freeze([
+  { id: 'NOVA', shape: 'star' },
+  { id: 'ORBIT', shape: 'orbit' },
+  { id: 'ECHO', shape: 'wave' },
+  { id: 'FLARE', shape: 'bolt' },
+  { id: 'APEX', shape: 'triangle' },
+  { id: 'HALO', shape: 'ring' },
+]);
+const MODULES = Object.freeze([
+  { id: 'reactor', title: 'Reactor sequence', short: 'Reactor', sector: '01', kind: 'sequence', subtitle: 'Bring the station back to life.' },
+  { id: 'comms', title: 'Frequency lock', short: 'Comms', sector: '02', kind: 'frequency', subtitle: 'Find a voice in the static.' },
+  { id: 'navigation', title: 'Escape vector', short: 'Navigation', sector: '03', kind: 'grid', subtitle: 'Chart a course through the debris.' },
+  { id: 'override', title: 'Final override', short: 'Override', sector: '04', kind: 'pin', subtitle: 'Tell the station to let you go.' },
+]);
+
+/** Uniform random integer in [0, max). Rejection sampling avoids modulo bias. */
+function randomInt(max) {
+  if (!Number.isInteger(max) || max < 1 || max > 0x100000000) throw new Error('Invalid random bound');
+  const limit = Math.floor(0x100000000 / max) * max;
+  const value = new Uint32Array(1);
+  do { globalThis.crypto.getRandomValues(value); } while (value[0] >= limit);
+  return value[0] % max;
+}
+function shuffled(items, rand = randomInt) {
+  const copy = [...items];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = rand(i + 1);
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+function uniqueId() {
+  const bytes = new Uint8Array(16);
+  globalThis.crypto.getRandomValues(bytes);
+  return Array.from(bytes, b => b.toString(16).padStart(2, '0')).join('');
+}
+
+/** @param {(max: number) => number} rand Inject a deterministic RNG in tests only. */
+function makePuzzles(rand = randomInt) {
+  const sequence = shuffled(SYMBOLS.map(s => s.id), rand).slice(0, 4);
+  const carrierNames = ['KESTREL', 'MIRA', 'POLARIS'];
+  const carriers = shuffled(Array.from({ length: 15 }, (_, i) => 120 + i * 10), rand).slice(0, 3);
+  const beaconIndex = rand(3);
+  const base = carriers[beaconIndex];
+  const gain = rand(2) + 2;
+  const drift = (rand(2) ? 1 : -1) * (rand(9) + 1);
+  const frequency = base * gain + drift;
+
+  const originRow = rand(5), originCol = rand(5);
+  const rowMoves = [-2, -1, 1, 2].filter(d => originRow + d >= 0 && originRow + d < 5);
+  const colMoves = [-2, -1, 1, 2].filter(d => originCol + d >= 0 && originCol + d < 5);
+  const dy = rowMoves[rand(rowMoves.length)], dx = colMoves[rand(colMoves.length)];
+  const destination = String.fromCharCode(65 + originRow + dy) + (originCol + dx + 1);
+  const origin = String.fromCharCode(65 + originRow) + (originCol + 1);
+
+  const packet = shuffled([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], rand).slice(0, 4);
+  const transforms = [
+    { label: 'Read the raw packet RIGHT TO LEFT.', run: d => [...d].reverse() },
+    { label: 'Move the FIRST digit to the END. Keep the other three in order.', run: d => [...d.slice(1), d[0]] },
+    { label: 'Swap the TWO MIDDLE digits. Keep the first and last in place.', run: d => [d[0], d[2], d[1], d[3]] },
+  ];
+  const transform = transforms[rand(transforms.length)];
+  const shift = rand(4) + 1;
+  const reordered = transform.run(packet);
+  const pin = reordered.map(d => (d + shift) % 10).join('');
+
+  return [
+    {
+      ...MODULES[0],
+      instructions: 'Transmit four DIFFERENT symbols in the correct order. Your crew has the ignition rules.',
+      console: { label: 'IGNITION ARRAY', detail: 'FOUR SIGNALS / NO REPEATS', symbols: SYMBOLS },
+      clues: [
+        { label: 'Starting signal', text: `${sequence[0]} begins the four-signal ignition chain.` },
+        { label: 'Linked signals', text: `${sequence[1]} must be followed immediately by ${sequence[2]}. They stay together, in that order.` },
+        { label: 'Closing signal', text: `${sequence[3]} is always transmitted LAST.` },
+      ],
+      hints: [
+        'Find the first signal and the last signal. The linked pair fits between them.',
+        `The chain begins with ${sequence[0]} and ends with ${sequence[3]}. Ask your crew for the linked pair.`,
+      ],
+      answer: sequence.join(','), answerLabel: sequence.join(' / '),
+    },
+    {
+      ...MODULES[1],
+      instructions: 'Read your beacon name to the crew. Calculate CARRIER x GAIN + DRIFT, then enter the three-digit frequency.',
+      console: { label: 'ACTIVE BEACON', detail: carrierNames[beaconIndex], digits: 3 },
+      clues: [
+        { label: 'Carrier directory', text: carrierNames.map((n, i) => `${n}: ${carriers[i]}`).join('  |  ') + '. Ask the operator which beacon is active.' },
+        { label: 'Amplifier gain', text: `Multiply the active beacon's carrier by ${gain}. Do this BEFORE applying thermal drift.` },
+        { label: 'Thermal drift', text: `After amplification, ${drift > 0 ? 'ADD' : 'SUBTRACT'} ${Math.abs(drift)}. Enter all three digits.` },
+      ],
+      hints: [
+        'The operator has the beacon name. One crew member has its carrier. Multiply first; apply drift last.',
+        `${carrierNames[beaconIndex]}'s carrier is ${base}. The gain is ${gain}. Ask your crew for the final drift correction.`,
+      ],
+      answer: String(frequency).padStart(3, '0'), answerLabel: `${frequency} MHz`,
+    },
+    {
+      ...MODULES[2],
+      instructions: 'Combine the crew\'s starting coordinate and two moves. Rows run A (top) to E (bottom); columns run 1 (left) to 5 (right). No wrapping.',
+      console: { label: 'DEBRIS FIELD', detail: 'SELECT ONE SAFE COORDINATE', size: 5 },
+      clues: [
+        { label: 'Last known position', text: `Begin at ${origin}. The letter is the ROW; the number is the COLUMN.` },
+        { label: 'Vertical vector', text: `Move ${Math.abs(dy)} row${Math.abs(dy) === 1 ? '' : 's'} ${dy < 0 ? 'UP, toward A' : 'DOWN, toward E'}. Do not wrap around the grid.` },
+        { label: 'Horizontal vector', text: `Move ${Math.abs(dx)} column${Math.abs(dx) === 1 ? '' : 's'} ${dx < 0 ? 'LEFT, toward 1' : 'RIGHT, toward 5'}. Do not wrap around the grid.` },
+      ],
+      hints: [
+        'Find the starting square, move vertically, then horizontally. Read the final row letter and column number.',
+        `The starting coordinate is ${origin}. After the vertical move you are on row ${destination[0]}. Apply the horizontal move next.`,
+      ],
+      answer: destination, answerLabel: `Safe vector ${destination}`,
+    },
+    {
+      ...MODULES[3],
+      instructions: 'Get the raw packet from your crew. Rearrange it first, then apply the digit shift. Leading zeroes count.',
+      console: { label: 'AIRLOCK AUTHORIZATION', detail: 'FOUR-DIGIT RECOVERY PIN', digits: 4 },
+      clues: [
+        { label: 'Raw recovery packet', text: `The raw packet is ${packet.join('')}. This is NOT the final PIN. Keep any leading zero.` },
+        { label: 'Reordering protocol', text: `${transform.label} Do this BEFORE applying the digit shift.` },
+        { label: 'Digit shift', text: `After rearranging, ADD ${shift} to EACH digit separately. Wrap 9 back to 0; do not carry to the next digit.` },
+      ],
+      hints: [
+        'This is a two-step cipher: rearrange, then shift each digit. For example, 9 + 2 becomes 1, not 11.',
+        `After rearranging, the packet is ${reordered.join('')}. Ask your crew how far to shift each digit.`,
+      ],
+      answer: pin, answerLabel: `Override ${pin}`,
+    },
+  ];
+}
+
+function normalizeAnswer(puzzle, answer) {
+  if (typeof answer !== 'string' || answer.length > 64) throw new Error('Enter a valid answer.');
+  const value = answer.trim().toUpperCase();
+  if (puzzle.kind === 'sequence') {
+    const parts = value.split(',');
+    if (parts.length !== 4 || new Set(parts).size !== 4 || parts.some(p => !SYMBOLS.some(s => s.id === p))) {
+      throw new Error('Choose four different symbols before transmitting.');
+    }
+  } else if (puzzle.kind === 'frequency' && !/^\d{3}$/.test(value)) {
+    throw new Error('Enter exactly three digits.');
+  } else if (puzzle.kind === 'grid' && !/^[A-E][1-5]$/.test(value)) {
+    throw new Error('Choose a coordinate on the grid.');
+  } else if (puzzle.kind === 'pin' && !/^\d{4}$/.test(value)) {
+    throw new Error('Enter exactly four digits, including any leading zero.');
+  }
+  return value;
+}
+
+
+// --- shared/engine.js ---
+
+const MISSION_MS = 8 * 60 * 1000;
+const RECONNECT_MS = 60 * 1000;
+const WRONG_PENALTY_MS = 20 * 1000;
+const HINT_PENALTY_MS = 15 * 1000;
+const DEFAULT_BRIEFING = Object.freeze({
+  title: 'The quiet after the impact',
+  story: 'An uncharted debris cloud has knocked Meridian Station off course. The escape craft is intact, but four systems stand between your crew and open space. Your consoles are fragmented. Your only complete system is each other.',
+  source: 'written',
+});
+const activePhase = phase => phase === 'playing' || phase === 'between';
+const ensure = (condition, message) => { if (!condition) throw new Error(message); };
+
+function makePlayer(id, name, now = Date.now()) {
+  return { id, name, ready: false, connected: true, disconnectedAt: null, joinedAt: now };
+}
+function createRoom(code, host, now = Date.now(), mode = 'online') {
+  return {
+    code, mode, hostId: host.id, players: [host], phase: 'lobby', version: 1,
+    createdAt: now, updatedAt: now, lastActivity: now,
+    index: 0, puzzles: [], deadline: null, pausedAt: null, pauseUntil: null,
+    frozenRemaining: MISSION_MS, mistakes: 0, totalHints: 0, hintCounts: [0, 0, 0, 0],
+    lastHintAt: -Infinity, lastGuessAt: -Infinity, completed: [], messages: [], events: [],
+    briefing: { ...DEFAULT_BRIEFING }, briefingLoading: false, director: null, missionId: null, failure: '',
+  };
+}
+function touch(room, now) {
+  room.version++;
+  room.updatedAt = now;
+  room.lastActivity = now;
+}
+function logEvent(room, text, kind, now) {
+  room.events.push({ id: uniqueId(), text, kind, at: now });
+  room.events = room.events.slice(-16);
+}
+function addPlayer(room, player, now = Date.now()) {
+  ensure(room.phase === 'lobby', 'A mission is already underway. Join after the crew returns to the lobby.');
+  ensure(room.players.length < 4, 'This room already has four crew members.');
+  ensure(!room.players.some(p => p.id === player.id), 'You are already in this room.');
+  room.players.push(player);
+  // Any roster change clears readiness so players knowingly accept the new crew.
+  room.players.forEach(p => p.ready = false);
+  touch(room, now);
+}
+function removePlayer(room, playerId, now = Date.now()) {
+  if (activePhase(room.phase)) {
+    failMission(room, 'A crew member left the mission. Return to the lobby to assemble a new crew.', now);
+  }
+  room.players = room.players.filter(p => p.id !== playerId);
+  room.players.forEach(p => p.ready = false);
+  if (room.hostId === playerId) room.hostId = room.players.find(p => p.connected)?.id ?? room.players[0]?.id ?? '';
+  touch(room, now);
+}
+function remainingTime(room, now = Date.now()) {
+  if (room.phase === 'lobby') return MISSION_MS;
+  if (!activePhase(room.phase)) return room.frozenRemaining;
+  return Math.max(0, room.deadline - (room.pausedAt ?? now));
+}
+function failMission(room, reason, now) {
+  room.frozenRemaining = remainingTime(room, now);
+  room.phase = 'lost';
+  room.failure = reason;
+  room.pausedAt = null;
+  room.pauseUntil = null;
+  logEvent(room, reason, 'error', now);
+  touch(room, now);
+}
+function tickRoom(room, now = Date.now()) {
+  if (!activePhase(room.phase)) return;
+  if (room.pausedAt !== null && now >= room.pauseUntil) {
+    failMission(room, 'The crew link was lost for more than 60 seconds. Reassemble and try again.', now);
+  } else if (remainingTime(room, now) <= 0) {
+    room.frozenRemaining = 0;
+    failMission(room, 'The escape window closed. Your next mission starts with what you learned.', now);
+  }
+}
+function setConnected(room, playerId, connected, now = Date.now()) {
+  // Settle elapsed time before pausing: reconnects cannot revive an expired mission.
+  tickRoom(room, now);
+  const player = room.players.find(p => p.id === playerId);
+  if (!player || player.connected === connected) return;
+  player.connected = connected;
+  player.disconnectedAt = connected ? null : now;
+  if ((!connected && room.hostId === playerId) || !room.players.find(p => p.id === room.hostId)?.connected) {
+    room.hostId = room.players.find(p => p.connected)?.id ?? room.hostId;
+  }
+  if (activePhase(room.phase)) {
+    const missing = room.players.filter(p => !p.connected);
+    if (missing.length && room.pausedAt === null) {
+      room.pausedAt = now;
+      room.pauseUntil = now + RECONNECT_MS;
+      logEvent(room, 'Crew link interrupted. Mission clock paused for up to 60 seconds.', 'info', now);
+    } else if (!missing.length && room.pausedAt !== null) {
+      room.deadline += now - room.pausedAt;
+      room.pausedAt = null;
+      room.pauseUntil = null;
+      logEvent(room, 'All crew links restored. Mission clock resumed.', 'success', now);
+    }
+  }
+  touch(room, now);
+}
+function operatorId(room) {
+  return room.mode === 'training' ? room.players[0].id : room.players[room.index % room.players.length]?.id;
+}
+function startMission(room, actorId, now = Date.now(), puzzles = makePuzzles()) {
+  ensure(room.phase === 'lobby', 'Return to the lobby before starting another mission.');
+  ensure(actorId === room.hostId, 'Only the captain can launch the mission.');
+  ensure(room.players.length >= 2, 'At least two crew members are required. Try solo training to practice.');
+  ensure(room.players.every(p => p.connected && p.ready), 'Every crew member must be connected and ready.');
+  room.phase = 'playing'; room.index = 0; room.puzzles = puzzles;
+  room.deadline = now + MISSION_MS; room.pausedAt = null; room.pauseUntil = null;
+  room.frozenRemaining = MISSION_MS; room.mistakes = 0; room.totalHints = 0;
+  room.hintCounts = [0, 0, 0, 0]; room.lastHintAt = -Infinity; room.lastGuessAt = -Infinity;
+  room.completed = []; room.events = []; room.failure = ''; room.missionId = uniqueId();
+  room.briefing = { ...DEFAULT_BRIEFING }; room.briefingLoading = false; room.director = null;
+  logEvent(room, 'Mission launched. Restore all four systems before the escape window closes.', 'info', now);
+  touch(room, now);
+}
+function handleAction(room, actorId, event, payload = {}, now = Date.now()) {
+  tickRoom(room, now);
+  const actor = room.players.find(p => p.id === actorId);
+  ensure(actor && actor.connected, 'Reconnect to the room before sending commands.');
+  ensure(typeof payload === 'object' && payload !== null && !Array.isArray(payload), 'Invalid command.');
+  if (event === 'ready') {
+    ensure(room.phase === 'lobby', 'Readiness can only change in the lobby.');
+    ensure(typeof payload.ready === 'boolean', 'Choose ready or not ready.');
+    actor.ready = payload.ready;
+  } else if (event === 'start') {
+    startMission(room, actorId, now);
+    return;
+  } else if (event === 'chat') {
+    ensure(typeof payload.text === 'string', 'Enter a message.');
+    const text = payload.text.replace(/[\u0000-\u001F\u007F]/g, ' ').trim();
+    ensure(text.length >= 1 && text.length <= 280, 'Messages must be 1-280 characters.');
+    room.messages.push({ id: uniqueId(), playerId: actor.id, name: actor.name, text, at: now });
+    room.messages = room.messages.slice(-40);
+  } else if (event === 'reset') {
+    ensure(actorId === room.hostId, 'Only the captain can return everyone to the lobby.');
+    ensure(room.phase === 'won' || room.phase === 'lost', 'Finish the current mission first.');
+    room.phase = 'lobby'; room.players.forEach(p => p.ready = false);
+    room.puzzles = []; room.index = 0; room.completed = []; room.events = [];
+    room.deadline = null; room.pausedAt = null; room.pauseUntil = null;
+    room.missionId = null; room.briefingLoading = false; room.director = null; room.briefing = { ...DEFAULT_BRIEFING };
+  } else if (event === 'next') {
+    ensure(actorId === room.hostId, 'Only the captain can activate the next system.');
+    ensure(room.phase === 'between', 'There is no next system ready yet.');
+    ensure(room.pausedAt === null, 'Wait for the missing crew member to reconnect.');
+    room.index++;
+    room.phase = 'playing';
+    room.lastGuessAt = -Infinity; room.lastHintAt = -Infinity;
+    logEvent(room, `${room.puzzles[room.index].title} online. A new operator has the console.`, 'info', now);
+  } else if (event === 'answer') {
+    ensure(room.phase === 'playing', 'This system is not accepting commands.');
+    ensure(room.pausedAt === null, 'The mission is paused until all crew reconnect.');
+    ensure(actorId === operatorId(room), 'Only the current operator can submit an answer. Share your clues with them.');
+    ensure(payload.moduleId === room.puzzles[room.index].id, 'That command belongs to a previous system.');
+    ensure(now - room.lastGuessAt >= 1200, 'Let the console reset for a moment.');
+    const puzzle = room.puzzles[room.index];
+    const answer = normalizeAnswer(puzzle, payload.answer);
+    room.lastGuessAt = now;
+    if (answer === puzzle.answer) {
+      room.completed.push({ id: puzzle.id, title: puzzle.title, answerLabel: puzzle.answerLabel });
+      logEvent(room, `${puzzle.title} restored. ${puzzle.answerLabel}.`, 'success', now);
+      if (room.index === room.puzzles.length - 1) {
+        room.frozenRemaining = remainingTime(room, now);
+        room.phase = 'won';
+        logEvent(room, 'Escape confirmed. Every signal mattered.', 'success', now);
+      } else room.phase = 'between';
+    } else {
+      room.mistakes++;
+      room.deadline -= WRONG_PENALTY_MS;
+      logEvent(room, 'Signal rejected. 20 seconds lost. Recheck the crew\'s instructions.', 'error', now);
+      tickRoom(room, now);
+    }
+  } else if (event === 'hint') {
+    ensure(room.phase === 'playing', 'Hints are available during an active system.');
+    ensure(room.pausedAt === null, 'The mission is paused until all crew reconnect.');
+    ensure(room.hintCounts[room.index] < 2, 'Both hints for this system have already been used.');
+    ensure(now - room.lastHintAt >= 4000, 'Give the crew a moment to read the last hint.');
+    room.lastHintAt = now;
+    room.hintCounts[room.index]++; room.totalHints++;
+    room.deadline -= HINT_PENALTY_MS;
+    logEvent(room, 'Recovery hint requested. 15 seconds spent.', 'info', now);
+    tickRoom(room, now);
+  } else throw new Error('Unknown command.');
+  touch(room, now);
+}
+
+/** Per-player projection. Do not spread the room or puzzle into this response. */
+function viewFor(room, playerId, now = Date.now()) {
+  const puzzle = room.puzzles[room.index];
+  const opId = puzzle ? operatorId(room) : null;
+  const experts = room.players.filter(p => p.id !== opId);
+  const myExpertIndex = experts.findIndex(p => p.id === playerId);
+  const myClues = !puzzle ? [] : room.mode === 'training' ? puzzle.clues :
+    myExpertIndex < 0 ? [] : puzzle.clues.filter((_, i) => i % experts.length === myExpertIndex);
+  const consoleVisible = room.mode === 'training' || opId === playerId;
+  return {
+    code: room.code, mode: room.mode, phase: room.phase, version: room.version,
+    meId: playerId, hostId: room.hostId,
+    players: room.players.map(p => ({ id: p.id, name: p.name, ready: p.ready, connected: p.connected })),
+    index: room.index, modules: MODULES, operatorId: opId,
+    current: puzzle ? {
+      id: puzzle.id, title: puzzle.title, kind: puzzle.kind, subtitle: puzzle.subtitle,
+      instructions: puzzle.instructions, console: consoleVisible ? puzzle.console : null,
+    } : null,
+    clues: myClues, completed: room.completed.map(c => ({ ...c })),
+    hints: puzzle ? puzzle.hints.slice(0, room.hintCounts[room.index]) : [],
+    mistakes: room.mistakes, totalHints: room.totalHints,
+    remainingMs: remainingTime(room, now), serverNow: now,
+    paused: room.pausedAt !== null,
+    pauseRemainingMs: room.pauseUntil ? Math.max(0, room.pauseUntil - now) : 0,
+    missing: room.players.filter(p => !p.connected).map(p => p.name),
+    briefing: { ...room.briefing }, briefingLoading: room.briefingLoading, director: room.director ? { ...room.director } : null,
+    messages: room.messages.map(m => ({ ...m })), events: room.events.map(e => ({ ...e })),
+    failure: room.failure,
+  };
+}
+
+
+// --- src/icons.js ---
+const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+function icon(name, size = 20) {
+  const paths = {
+    signal: '<path d="M4 15a12 12 0 0 1 16 0M7 10a8 8 0 0 1 10 0M10 5a3 3 0 0 1 4 0M12 16v5"/>',
+    arrow: '<path d="M4 12h15M13 6l6 6-6 6"/>',
+    play: '<path d="m9 5 11 7-11 7Z"/>',
+    users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+    clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    radio: '<rect x="6" y="3" width="12" height="18" rx="3"/><path d="M9 7h6M9 11h6M12 16v1"/>',
+    lock: '<rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V6a4 4 0 0 1 8 0v4M12 14v3"/>',
+    check: '<path d="m5 12 4 4L19 6"/>',
+    x: '<path d="m6 6 12 12M6 18 18 6"/>',
+    copy: '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/>',
+    exit: '<path d="M9 4H4v16h5M10 12h11m-4-4 4 4-4 4"/>',
+    question: '<circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 2-2.5 2-2.5 4M12 17h.01"/>',
+    sound: '<path d="M11 5 6 9H3v6h3l5 4ZM15 8a6 6 0 0 1 0 8M18 5a10 10 0 0 1 0 14"/>',
+    mute: '<path d="M11 5 6 9H3v6h3l5 4ZM16 9l5 6M16 15l5-6"/>',
+    sparkles: '<path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5ZM20 2v4M18 4h4"/>',
+    target: '<circle cx="12" cy="12" r="7"/><path d="M12 1v5M12 18v5M1 12h5M18 12h5"/>',
+    warning: '<path d="m12 3 10 18H2ZM12 9v5M12 17h.01"/>',
+    bolt: '<path d="m13 2-9 12h7l-1 8 10-13h-8Z"/>',
+    link: '<path d="m10 13 4-4M8 16l-1 1a4 4 0 0 1-6-6l5-5a4 4 0 0 1 6 0m0 6a4 4 0 0 0 6 0l5-5a4 4 0 0 0-6-6l-1 1" transform="translate(1 2) scale(.85)"/>',
+    chevron: '<path d="m9 5 7 7-7 7"/>',
+    terminal: '<path d="m4 5 7 7-7 7M13 19h7"/>',
+  };
+  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name] || paths.signal}</svg>`;
+}
+function glyph(name, size = 32) {
+  const paths = {
+    NOVA: '<path d="m16 3 3.2 9.8L29 16l-9.8 3.2L16 29l-3.2-9.8L3 16l9.8-3.2Z"/>',
+    ORBIT: '<circle cx="16" cy="16" r="8"/><ellipse cx="16" cy="16" rx="15" ry="5" transform="rotate(-35 16 16)"/>',
+    ECHO: '<path d="M3 12c4-9 9 9 13 0s9 9 13 0M3 21c4-9 9 9 13 0s9 9 13 0"/>',
+    FLARE: '<path d="m19 3-13 15h9l-2 11 13-16h-9Z"/>',
+    APEX: '<path d="m16 4 13 24H3ZM16 15l6 11H10Z"/>',
+    HALO: '<circle cx="16" cy="16" r="12"/><circle cx="16" cy="16" r="5"/><path d="M16 1v7M16 24v7"/>',
+  };
+  return `<svg width="${size}" height="${size}" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name] || paths.NOVA}</svg>`;
+}
+function stationArt(extraClass = '') {
+  return `<div class="station-art ${extraClass}" aria-hidden="true">
+    <div class="planet-glow"></div><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit orbit-three"></div>
+    <div class="orbital-dot dot-one"></div><div class="orbital-dot dot-two"></div>
+    <svg class="station-drawing" viewBox="0 0 460 340" fill="none">
+      <g transform="translate(230 170) rotate(-26)" stroke="currentColor" stroke-width="1.3">
+        <path d="M-142 0H142M0-105V105" opacity=".3" stroke-dasharray="4 5"/>
+        <rect x="-36" y="-48" width="72" height="96" rx="12" fill="#17242d"/>
+        <rect x="-23" y="-36" width="46" height="72" rx="7" fill="#111c26"/>
+        <path d="M-23-19h46M-23 19h46M-13-36v72M13-36v72" opacity=".5"/>
+        <circle r="18" fill="#1b3038"/><circle r="10"/><path d="M-7 0H7M0-7V7"/>
+        <path d="M-36-15h-37M-36 15h-37M36-15h37M36 15h37"/>
+        <rect x="-149" y="-58" width="76" height="116" rx="3" fill="#12232e"/>
+        <rect x="73" y="-58" width="76" height="116" rx="3" fill="#12232e"/>
+        <path d="M-124-58V58M-98-58V58M99-58V58M124-58V58M-149-29h76M-149 0h76M-149 29h76M73-29h76M73 0h76M73 29h76" opacity=".55"/>
+        <path d="M-12-48v-32h24v32M-12 48v32h24V48M0-80v-22M0 80v22"/>
+        <circle cy="-108" r="6"/><path d="M-14-107a14 14 0 0 1 28 0"/>
+        <path d="M-155 70h26M-142 57v26M154-75h26M167-88v26" opacity=".4"/>
+      </g>
+    </svg>
+    <span class="orbit-label label-top">MERIDIAN / M-07</span><span class="orbit-label label-bottom">48.21 N &nbsp; / &nbsp; SIGNAL UNSTABLE</span>
+  </div>`;
+}
+
+
+// --- src/network.js ---
+const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+class Network {
+  constructor({ onState, onConnection, onExpired }) {
+    this.onState = onState; this.onConnection = onConnection; this.onExpired = onExpired;
+    this.session = null; this.controller = null; this.generation = 0;
+  }
+  async api(path, body, token) {
+    const response = await fetch(path, {
+      method: body ? 'POST' : 'GET',
+      headers: { ...(body ? { 'Content-Type': 'application/json' } : {}), ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+      body: body ? JSON.stringify(body) : undefined,
+      cache: 'no-store', signal: AbortSignal.timeout(10000),
+    });
+    const result = await response.json();
+    if (!response.ok || !result.ok) { const error = new Error(result.error || 'The station could not process that command.'); error.status = response.status; throw error; }
+    return result;
+  }
+  async create(name) { return this.api('/api/rooms', { name }); }
+  async join(name, code) { return this.api('/api/join', { name, code }); }
+  connect(session) {
+    this.stop(); this.session = session;
+    const generation = ++this.generation;
+    this.controller = new AbortController();
+    this.streamLoop(session, generation, this.controller.signal);
+  }
+  async streamLoop(session, generation, signal) {
+    let delay = 700;
+    while (!signal.aborted && generation === this.generation) {
+      try {
+        const response = await fetch('/api/events', {
+          headers: { Authorization: `Bearer ${session.token}` }, signal, cache: 'no-store',
+        });
+        if (response.status === 401 || response.status === 403) {
+          this.onExpired('Your station session has expired. Join or create a new room.'); return;
+        }
+        if (!response.ok || !response.body) throw new Error('Signal interrupted');
+        if (generation !== this.generation) return;
+        this.onConnection(true); delay = 700;
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let pending = '';
+        try {
+          while (!signal.aborted) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            pending += decoder.decode(value, { stream: true });
+            if (pending.length > 262144) throw new Error('Oversized signal');
+            let boundary;
+            while ((boundary = pending.indexOf('\n\n')) >= 0) {
+              const event = pending.slice(0, boundary); pending = pending.slice(boundary + 2);
+              const data = event.split('\n').find(line => line.startsWith('data: '));
+              if (data && generation === this.generation) this.onState(JSON.parse(data.slice(6)));
+            }
+          }
+        } finally { reader.releaseLock(); }
+      } catch (error) {
+        if (signal.aborted) return;
+      }
+      if (signal.aborted || generation !== this.generation) return;
+      this.onConnection(false);
+      await wait(delay); delay = Math.min(8000, delay * 1.7);
+    }
+  }
+  async action(event, payload = {}) {
+    if (!this.session) throw new Error('Join a room first.');
+    const token = this.session.token;
+    const body = { event, payload, requestId: `${Date.now()}-${Math.random().toString(36).slice(2, 12)}` };
+    let result;
+    try { result = await this.api('/api/action', body, token); }
+    catch (error) {
+      if (error.status) throw error;
+      // One retry with the SAME command ID. A lost acknowledgement never double-charges a penalty.
+      await wait(500);
+      result = await this.api('/api/action', body, token);
+    }
+    if (this.session?.token === token && result.view) this.onState(result.view);
+    return result;
+  }
+  stop() { this.generation++; this.controller?.abort(); this.controller = null; this.session = null; }
+}
+
+
+// --- src/training.js ---
+
+
+/** Explicit local simulation. No network, no AI request, no pretend human players. */
+class Training {
+  constructor(name, onState) {
+    this.onState = onState;
+    this.me = uniqueId();
+    const host = makePlayer(this.me, name || 'CADET');
+    this.room = createRoom('SOLO', host, Date.now(), 'training');
+    addPlayer(this.room, makePlayer('atlas-simulator', 'ATLAS / simulator'));
+    this.room.players.forEach(p => p.ready = true);
+    startMission(this.room, this.me);
+    this.emit();
+    this.timer = setInterval(() => { tickRoom(this.room); this.emit(); }, 500);
+  }
+  emit() { this.onState(viewFor(this.room, this.me)); }
+  async action(event, payload) { handleAction(this.room, this.me, event, payload); this.emit(); }
+  stop() { clearInterval(this.timer); }
+}
+
+
+// --- src/views.js ---
+
+
+
+const e = escapeHtml;
+const disabled = value => value ? 'disabled' : '';
+const padded = value => String(value).padStart(2, '0');
+function formatTime(ms) {
+  const seconds = Math.max(0, Math.ceil(ms / 1000));
+  return `${padded(Math.floor(seconds / 60))}:${padded(seconds % 60)}`;
+}
+function header(ui, view = null) {
+  return `<header class="site-header">
+    <a class="brand" href="${ui.offline ? '#' : '/'}" data-action="brand" aria-label="Signal Lost home"><span class="brand-mark">${icon('signal', 24)}</span><span>SIGNAL<span class="brand-light">LOST</span><small>MERIDIAN ORBITAL SYSTEMS</small></span></a>
+    <div class="header-actions">
+      <span class="status-chip ${view && !ui.connected && view.mode !== 'training' ? 'status-warn' : ''}"><i></i>${view ? view.mode === 'training' ? 'SOLO SIMULATION' : ui.connected ? 'CREW LINK LIVE' : 'RECONNECTING' : ui.offline ? 'LOCAL TRAINING BUILD' : 'COOPERATIVE / 2-4 PLAYERS'}</span>
+      <button class="icon-button" data-action="sound" aria-label="${ui.sound ? 'Mute sound' : 'Enable sound'}" title="${ui.sound ? 'Mute sound' : 'Enable sound'}">${icon(ui.sound ? 'sound' : 'mute')}</button>
+      <button class="icon-button" data-action="help" aria-label="How to play" title="How to play">${icon('question')}</button>
+      ${view ? `<button class="quiet-button leave-button" data-action="leave">${icon('exit', 17)}<span>Leave</span></button>` : ''}
+    </div>
+  </header>`;
+}
+function homeView(ui) {
+  const joining = ui.homeMode === 'join';
+  return `${header(ui)}<main class="landing">
+    <section class="hero-copy">
+      <div class="eyebrow"><span class="tiny-line"></span>INCOMING TRANSMISSION &nbsp; / &nbsp; M-07</div>
+      <h1>One station.<br>Different clues.<br><span>Only together.</span></h1>
+      <p class="hero-description">The signal is breaking. Your crew is scattered.<br>Everyone has part of the answer.<br>Talk it through. Find your way back.</p>
+      <div class="mission-metrics"><div><b>02-04</b><span>CREW MEMBERS</span></div><div><b>08:00</b><span>ESCAPE WINDOW</span></div><div><b>04</b><span>BROKEN SYSTEMS</span></div></div>
+      ${stationArt('hero-station')}
+      <div class="transmission-caption"><span class="pulse-dot"></span><span>LAST CONTACT &nbsp; // &nbsp; MERIDIAN STATION</span><span class="waveform"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+    </section>
+    <section class="connection-card" aria-labelledby="connect-heading">
+      <div class="card-topline"><span class="eyebrow">FLIGHT DECK / ACCESS</span>${icon('terminal', 19)}</div>
+      <h2 id="connect-heading">Assemble your crew.</h2><p class="muted">No accounts. Just a room code, your crew, and a shared countdown.</p>
+      <div class="segmented" role="group" aria-label="Connection mode"><button class="${joining ? '' : 'selected'}" data-action="host-tab">Create a room</button><button class="${joining ? 'selected' : ''}" data-action="join-tab">Join a room</button></div>
+      <form id="connect-form">
+        <label class="field-label" for="callsign">YOUR CALLSIGN <span>01-18 CHARACTERS</span></label>
+        <div class="input-shell">${icon('users', 18)}<input id="callsign" name="callsign" autocomplete="nickname" maxlength="18" placeholder="e.g. NOVA" value="${e(ui.name)}" ${disabled(ui.busy)} required></div>
+        ${joining ? `<label class="field-label" for="room-code">ROOM CODE <span>FROM YOUR CAPTAIN</span></label><div class="input-shell">${icon('radio', 18)}<input id="room-code" class="code-input" name="room-code" autocomplete="off" maxlength="6" placeholder="6-CHARACTER CODE" value="${e(ui.code)}" ${disabled(ui.busy)} required></div>` : ''}
+        ${ui.offline ? `<div class="inline-note">This standalone file is solo training. Run the full project to create or join live multiplayer rooms.</div>` : ''}
+        <button class="button button-primary full" type="submit" ${disabled(ui.busy || ui.offline)}>${ui.busy ? '<span class="loading-dot"></span> Establishing signal...' : `${joining ? 'Join the crew' : 'Create a room'} ${icon('arrow', 20)}`}</button>
+      </form>
+      <div class="connection-note">${icon('lock', 13)}<span>Private room &nbsp; / &nbsp; Play from separate devices</span></div>
+      <div class="divider-label"><span>OR GET YOUR BEARINGS</span></div>
+      <button class="button button-secondary full" data-action="training">${icon('play', 18)} Try solo training <span class="small-tag">LOCAL</span></button>
+      <p class="training-note">Explore all four puzzles with every clue visible.<br>No teammate or API key needed.</p>
+      <div class="card-footer"><span class="pulse-dot"></span> SYSTEMS AWAITING RECOVERY <span>V.03</span></div>
+    </section>
+    <section class="how-strip" aria-label="How it works">
+      <article><span class="step-number">01</span><div><h3>Open a channel.</h3><p>Create a room. Send the code to your crew.</p></div></article>
+      <article><span class="step-number">02</span><div><h3>Read your part.</h3><p>The operator has controls. The crew has clues.</p></div></article>
+      <article><span class="step-number">03</span><div><h3>Make it home.</h3><p>Restore four systems before time runs out.</p></div></article>
+    </section>
+  </main><footer class="site-footer"><span>A SHARED MISSION. A DIFFERENT VIEW.</span><span>BUILT WITH OPENAI ASSISTANCE &nbsp; / &nbsp; PROTOTYPE 03</span></footer>`;
+}
+function crewCards(view) {
+  return `<div class="crew-grid">${Array.from({ length: 4 }, (_, i) => {
+    const p = view.players[i];
+    return p ? `<article class="crew-card ${p.ready ? 'is-ready' : ''} ${p.connected ? '' : 'is-away'}"><div class="crew-avatar seat-${i}">${e(p.name.slice(0, 2).toUpperCase())}</div><div class="crew-identity"><h3>${e(p.name)} ${p.id === view.meId ? '<small>YOU</small>' : ''}</h3><span>${p.id === view.hostId ? 'CAPTAIN' : `CREW ${padded(i + 1)}`}</span></div><span class="crew-state">${p.connected ? p.ready ? `${icon('check', 14)} READY` : '<i></i> STANDBY' : 'LINK LOST'}</span></article>` : `<article class="crew-card empty-seat"><div class="crew-avatar">+</div><div class="crew-identity"><h3>Open seat</h3><span>AWAITING CONNECTION</span></div><span class="seat-number">${padded(i + 1)}</span></article>`;
+  }).join('')}</div>`;
+}
+function roomIdentity(view, ui) {
+  return `<div class="room-identity"><span class="eyebrow">${view.mode === 'training' ? 'LOCAL SIMULATION / ALL INTEL VISIBLE' : 'PRIVATE CHANNEL'}</span><button class="room-code" data-action="copy-code" ${disabled(view.mode === 'training')} aria-label="Copy room code ${e(view.code)}">${e(view.code)} ${view.mode !== 'training' ? icon('copy', 16) : ''}</button>${view.mode !== 'training' ? `<button class="quiet-button" data-action="copy-invite">Copy invite ${icon('link', 14)}</button>` : ''}</div>`;
+}
+function chatView(view, ui) {
+  if (view.mode === 'training') return `<section class="panel comms-panel training-comms"><div class="panel-heading"><span>${icon('radio', 17)} TRAINING CHANNEL</span><span class="small-tag">LOCAL ONLY</span></div><h3>No crew required here.</h3><p>All three intel packets are visible beside your console, and you operate every system. In multiplayer, those packets are split between your teammates.</p><p class="muted">No other players are connected. No live AI calls are made.</p></section>`;
+  return `<section class="panel comms-panel" aria-labelledby="comms-heading"><div class="panel-heading"><span id="comms-heading">${icon('radio', 17)} CREW COMMS</span><span class="online-count">${view.players.filter(p => p.connected).length} CONNECTED</span></div>
+    <div id="chat-scroll" class="chat-scroll" role="log" aria-label="Crew messages" aria-live="polite">${view.messages.length ? view.messages.map(m => `<div class="chat-message ${m.playerId === view.meId ? 'own-message' : ''}"><span class="chat-name">${e(m.name)}</span><span>${e(m.text)}</span></div>`).join('') : '<p class="chat-empty">Your crew\'s words are your best instrument.<br>Say hello, or share your first clue.</p>'}</div>
+    <form id="chat-form" class="chat-form"><input id="chat-message" autocomplete="off" maxlength="280" placeholder="Send a message to the crew..." value="${e(ui.chat)}" aria-label="Message to crew" ${disabled(!ui.connected)}><button type="submit" aria-label="Send message" ${disabled(!ui.connected)}>${icon('arrow', 19)}</button></form>
+    <div class="chat-footnote">Use text here or talk on your own call. Voice is not built in.</div></section>`;
+}
+function lobbyView(view, ui) {
+  const me = view.players.find(p => p.id === view.meId);
+  const captain = view.hostId === view.meId;
+  const allReady = view.players.length >= 2 && view.players.every(p => p.ready && p.connected);
+  return `<main class="room-main">${roomIdentity(view, ui)}<div class="section-title"><div><div class="eyebrow">PRE-FLIGHT / CREW ASSEMBLY</div><h1>Better together.</h1><p>Every screen sees something different. Share the invite link, then mark ready.</p></div><span class="crew-counter">${view.players.length}<small>/ 4 CREW</small></span></div>
+    <div class="lobby-layout"><section class="lobby-main">${crewCards(view)}
+      <div class="lobby-action-panel panel"><div><h3>${me?.ready ? 'You are ready for departure.' : 'Your crew is waiting for you.'}</h3><p>${allReady ? 'All systems checked. Captain, you are clear to launch.' : 'At least two players are needed. Everyone must mark themselves ready.'}</p></div><button class="button ${me?.ready ? 'button-secondary' : 'button-primary'}" data-action="ready" ${disabled(ui.busy || !ui.connected)}>${icon(me?.ready ? 'check' : 'radio', 18)} ${me?.ready ? 'Ready - undo' : "I'm ready"}</button></div>
+      <div class="launch-row"><div class="launch-checks"><span class="${view.players.length >= 2 ? 'passed' : ''}">${icon('users', 15)} ${view.players.length}/2 minimum crew</span><span class="${allReady ? 'passed' : ''}">${icon('check', 15)} ${view.players.filter(p => p.ready).length}/${view.players.length} ready</span></div>${captain ? `<button class="button button-primary" data-action="start" ${disabled(!allReady || ui.busy || !ui.connected)}>Launch mission ${icon('arrow')}</button>` : `<span class="muted">Your captain will launch the mission.</span>`}</div>
+      <section class="flight-instructions panel"><div class="eyebrow">THE FLIGHT PLAN</div><h3>Four systems. Eight minutes. All of you.</h3><div class="flight-steps"><p><b>Take turns at the console.</b> The operator changes with each system. Only they can submit the team's answer.</p><p><b>Say what you see.</b> The rest of the crew receives private intel. Share it in comms or over a call.</p><p><b>Be deliberate.</b> A wrong answer costs 20 seconds. Each recovery hint costs 15 seconds.</p></div></section>
+    </section><aside class="lobby-aside"><div class="station-panel panel">${stationArt('lobby-station')}<div class="station-panel-caption"><span class="eyebrow">MERIDIAN / M-07</span><h3>Still out there.<br>Still waiting for you.</h3></div></div>${chatView(view, ui)}</aside></div></main>`;
+}
+function progressView(view) {
+  return `<div class="system-progress" aria-label="Mission progress">${view.modules.map((m, i) => {
+    const done = view.completed.some(c => c.id === m.id), active = view.index === i && view.phase !== 'won' && view.phase !== 'lost';
+    return `<div class="system-step ${done ? 'complete' : active ? 'active' : ''}"><span class="system-step-icon">${done ? icon('check', 17) : padded(i + 1)}</span><span><b>${e(m.short)}</b><small>${done ? 'RESTORED' : active ? 'RECOVERY ACTIVE' : 'OFFLINE'}</small></span><span class="system-dot"></span></div>`;
+  }).join('')}</div>`;
+}
+function consoleView(view, ui) {
+  const cur = view.current;
+  const active = view.operatorId === view.meId;
+  const blocked = ui.busy || view.paused || (!ui.connected && view.mode !== 'training');
+  if (!active) return `<section class="panel locked-console"><div class="panel-heading"><span>${icon('lock', 17)} OPERATOR CHANNEL</span><span class="small-tag">PRIVATE</span></div><div class="locked-display">${icon('terminal', 42)}<h3>${e(view.players.find(p => p.id === view.operatorId)?.name || 'Your teammate')} has the console.</h3><p>Your job is to make their picture complete.<br>Read your intel aloud or send it in crew comms.</p><div class="standby-wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="eyebrow">RECEIVING TELEMETRY / AWAITING YOUR INTEL</span></div></section>`;
+  let controls = '';
+  if (cur.kind === 'sequence') {
+    controls = `<div class="sequence-slots">${Array.from({ length: 4 }, (_, i) => `<div class="sequence-slot ${ui.sequence[i] ? 'filled' : ''}"><span class="slot-index">${padded(i + 1)}</span>${ui.sequence[i] ? `${glyph(ui.sequence[i], 28)}<span>${ui.sequence[i]}</span>` : '<span class="slot-empty">-</span>'}</div>`).join('')}</div><div class="glyph-grid">${SYMBOLS.map(s => `<button class="glyph-button ${ui.sequence.includes(s.id) ? 'selected' : ''}" data-action="glyph" data-value="${s.id}" data-focus="glyph-${s.id}" aria-label="${s.id}${ui.sequence.includes(s.id) ? ', selected' : ''}" aria-pressed="${ui.sequence.includes(s.id)}" ${disabled(blocked)}>${glyph(s.id, 32)}<span>${s.id}</span></button>`).join('')}</div><div class="console-buttons"><button class="quiet-button" data-action="clear-answer" ${disabled(blocked || !ui.sequence.length)}>Clear sequence</button><button class="button button-primary" data-action="submit-answer" ${disabled(blocked || ui.sequence.length !== 4)}>Transmit sequence ${icon('arrow', 18)}</button></div>`;
+  } else if (cur.kind === 'grid') {
+    controls = `<div class="coordinate-grid" role="group" aria-label="Navigation coordinates"><span></span>${[1, 2, 3, 4, 5].map(n => `<span class="grid-label">${n}</span>`).join('')}${['A', 'B', 'C', 'D', 'E'].map(row => `<span class="grid-label">${row}</span>${[1, 2, 3, 4, 5].map(col => `<button class="coordinate ${ui.answer === row + col ? 'selected' : ''}" data-action="coordinate" data-value="${row}${col}" data-focus="coord-${row}${col}" aria-label="Coordinate ${row}${col}" aria-pressed="${ui.answer === row + col}" ${disabled(blocked)}>${ui.answer === row + col ? icon('target', 21) : '<span class="grid-star"></span>'}<small>${row}${col}</small></button>`).join('')}`).join('')}</div><div class="console-buttons"><span class="coordinate-readout">VECTOR <b>${ui.answer || '--'}</b></span><button class="button button-primary" data-action="submit-answer" ${disabled(blocked || !ui.answer)}>Set escape vector ${icon('arrow', 18)}</button></div>`;
+  } else {
+    const digits = cur.kind === 'frequency' ? 3 : 4;
+    controls = `<form id="answer-form"><div class="numeric-display"><label for="numeric-answer">${cur.kind === 'frequency' ? 'TUNING FREQUENCY' : 'RECOVERY PIN'}</label><div class="digital-input-wrap"><input id="numeric-answer" inputmode="numeric" type="text" autocomplete="off" spellcheck="false" maxlength="${digits}" pattern="[0-9]{${digits}}" placeholder="${'-'.repeat(digits)}" value="${e(ui.answer)}" aria-label="${digits}-digit ${cur.kind === 'frequency' ? 'frequency' : 'recovery PIN'}" ${disabled(blocked)}>${cur.kind === 'frequency' ? '<span>MHz</span>' : icon('lock', 22)}</div><span class="numeric-caption">${cur.kind === 'frequency' ? 'CARRIER x GAIN + DRIFT' : 'REARRANGE FIRST / SHIFT SECOND'}</span></div><button id="numeric-submit" class="button button-primary full" type="submit" ${disabled(blocked || !new RegExp(`^\\d{${digits}}$`).test(ui.answer))}>${cur.kind === 'frequency' ? 'Lock frequency' : 'Authorize escape'} ${icon('arrow', 18)}</button></form>`;
+  }
+  return `<section class="panel console-panel"><div class="panel-heading"><span>${icon('terminal', 17)} YOUR CONSOLE</span><span class="small-tag tag-accent">OPERATOR</span></div><div class="console-readout"><div><span class="eyebrow">${e(cur.console.label)}</span><b>${e(cur.console.detail)}</b></div><span class="pulse-dot"></span></div><div class="console-controls">${controls}</div><div class="console-bottom">${icon('lock', 13)} ONLY YOU CAN TRANSMIT &nbsp; / &nbsp; WRONG ANSWER: -20 SEC</div></section>`;
+}
+function intelView(view, ui) {
+  const training = view.mode === 'training';
+  return `<section class="panel intel-panel"><div class="panel-heading"><span>${icon('radio', 17)} ${training ? 'SIMULATED CREW INTEL' : 'YOUR PRIVATE INTEL'}</span><span class="small-tag">${training ? 'ALL PACKETS' : 'FOR YOUR EYES'}</span></div>
+    <div class="intel-body">${view.clues.length ? view.clues.map((clue, i) => `<article class="intel-card"><div class="intel-index">${icon('signal', 16)} TELEMETRY / ${padded(i + 1)}</div><h3>${e(clue.label)}</h3><p>${e(clue.text)}</p></article>`).join('') : `<div class="operator-instructions">${icon('users', 36)}<h3>You have the controls.<br>They have the missing pieces.</h3><p>Ask the crew to read their private intel. Your console readout may be exactly what they need.</p><div class="expert-names">${view.players.filter(p => p.id !== view.operatorId).map(p => `<span><i class="${p.connected ? '' : 'offline-dot'}"></i>${e(p.name)}</span>`).join('')}</div></div>`}
+    ${training ? '<div class="intel-tip">TRAINING MODE: You can see every packet. In live play, these are divided between your crew.</div>' : '<div class="intel-tip">Your teammates cannot see these packets. Communication is the puzzle.</div>'}
+    </div><div class="scratchpad"><label for="crew-scratchpad">${icon('terminal', 15)} PERSONAL SCRATCHPAD</label><textarea id="crew-scratchpad" maxlength="500" rows="3" placeholder="Write down clues and calculations. Only visible on this device.">${e(ui.notes || '')}</textarea><small>Private to your browser tab · Clears when the next system starts</small></div><div class="hint-area">${view.hints.map((hint, i) => `<div class="hint-card"><b>RECOVERY HINT ${i + 1}</b><p>${e(hint)}</p></div>`).join('')}<button class="quiet-button hint-button" data-action="hint" ${disabled(view.hints.length >= 2 || ui.busy || view.paused || !ui.connected && !training)}>${icon('sparkles', 16)} ${view.hints.length >= 2 ? 'All hints used' : 'Request a recovery hint'} <span>${view.hints.length}/2 &nbsp; -15 SEC</span></button></div></section>`;
+}
+function briefingView(view) {
+  return `<section class="panel briefing-panel"><div class="panel-heading"><span>${icon('signal', 17)} MISSION TRANSMISSION</span><span class="small-tag">${view.briefingLoading ? 'GENERATING...' : view.briefing.source === 'openai' ? 'OPENAI BRIEFING' : 'WRITTEN BRIEFING'}</span></div><h3>${e(view.briefing.title)}</h3><p>${e(view.briefing.story)}</p>${view.director ? `<div class="director-transmission" role="status"><strong>MISSION DIRECTOR / ${view.director.source === 'openai' ? 'LIVE AI' : view.director.source === 'loading' ? 'RECEIVING' : 'BACKUP'}</strong><p>${e(view.director.text)}</p></div>` : ''}<div class="briefing-note">${view.briefing.source === 'openai' ? 'AI-generated story. Puzzle rules and answers are deterministic.' : 'Prewritten fallback. Optional live AI changes the story, never the solution.'}</div></section>`;
+}
+function betweenView(view, ui) {
+  const last = view.completed[view.completed.length - 1];
+  const next = view.modules[view.index + 1];
+  return `<section class="panel between-panel"><div class="success-orbit">${icon('check', 42)}</div><span class="eyebrow">SYSTEM ${padded(view.index + 1)} / RECOVERED</span><h2>${e(last.title)} restored.</h2><p>${e(last.answerLabel)}</p><div class="next-system"><span>NEXT UP</span><b>${e(next?.title)}</b><small>The operator rotates. New intel arrives.</small></div>${view.hostId === view.meId ? `<button class="button button-primary" data-action="next" ${disabled(ui.busy || view.paused)}>Activate ${e(next?.short)} ${icon('arrow')}</button>` : '<p class="muted">Waiting for your captain to activate the next system.</p>'}<div class="between-note">${icon('clock', 14)} The mission clock is still running.</div></section>`;
+}
+function resultView(view, ui) {
+  const grade = missionGrade(view);
+  const won = view.phase === 'won';
+  return `<section class="result-panel panel ${won ? 'result-won' : 'result-lost'}"><div class="result-glow"></div><div class="result-emblem">${icon(won ? 'signal' : 'warning', 42)}</div><div class="eyebrow">${won ? 'TRANSMISSION RECEIVED / CREW RECOVERED' : 'TRANSMISSION ENDED / MISSION INCOMPLETE'}</div><h1>${won ? 'Signal found.<br><span>Crew safe.</span>' : 'The signal<br><span>went quiet.</span>'}</h1><p>${won ? 'You never had the whole picture. You had each other.' : e(view.failure)}</p><div class="mission-grade" aria-label="Mission performance grade"><span>CREW PERFORMANCE</span><strong>${e(grade.rank)}</strong><b>${e(grade.label)}</b></div><div class="result-stats"><div><b>${formatTime(view.remainingMs)}</b><span>TIME REMAINING</span></div><div><b>${padded(view.completed.length)} / 04</b><span>SYSTEMS RESTORED</span></div><div><b>${padded(view.mistakes)}</b><span>WRONG SIGNALS</span></div><div><b>${padded(view.totalHints)}</b><span>HINTS USED</span></div></div><div class="result-crew">${view.players.map(p => `<span>${icon('check', 14)} ${e(p.name)}</span>`).join('')}</div><div class="result-actions">${view.mode === 'training' ? '<button class="button button-primary" data-action="replay">Run another simulation</button>' : view.hostId === view.meId ? '<button class="button button-primary" data-action="reset">Return crew to lobby</button>' : '<span class="muted">Your captain can return the crew to the lobby.</span>'}<button class="button button-secondary" data-action="share-result">Copy mission report ${icon('copy', 16)}</button></div>${view.mode === 'training' ? '<p class="result-mode-note">SOLO TRAINING RESULT / ALL CLUES WERE VISIBLE</p>' : ''}</section>`;
+}
+function missionView(view, ui) {
+  const ended = view.phase === 'won' || view.phase === 'lost';
+  const active = view.operatorId === view.meId;
+  const latest = view.events[view.events.length - 1];
+  return `<main class="room-main">${roomIdentity(view, ui)}${!ended ? `<div class="mission-title-row"><div><div class="eyebrow">SYSTEM ${padded(view.index + 1)} / 04 &nbsp; ${view.mode === 'training' ? 'SOLO TRAINING' : active ? 'YOU ARE THE OPERATOR' : 'YOU ARE AN INTEL OFFICER'}</div><h1>${e(view.current.title)}</h1><p>${e(view.current.instructions)}</p></div><div class="mission-timer ${view.remainingMs < 60000 ? 'critical' : ''}"><span>${view.paused ? 'CLOCK PAUSED' : 'ESCAPE WINDOW'}</span><b id="mission-clock" aria-label="Mission time remaining">${formatTime(view.remainingMs)}</b><div class="timer-meter"><i id="timer-fill" style="width:${Math.max(0, view.remainingMs / 480000 * 100)}%"></i></div></div></div>` : ''}
+    ${!ended ? `<div class="mission-atmosphere" aria-hidden="true"><span class="atmosphere-beacon"></span><span>MERIDIAN // LIVE TELEMETRY</span><div class="atmosphere-track"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span>SECTOR ${padded(view.index + 1)} · SIGNAL ${view.paused ? 'INTERRUPTED' : 'ACTIVE'}</span></div>` : ''}
+    ${progressView(view)}
+    <div id="connection-warning" class="connection-warning ${view.mode === 'training' || ui.connected ? 'hidden' : ''}" role="status">${icon('warning', 16)} Your signal was interrupted. Reconnecting automatically; commands are disabled.</div>
+    ${view.paused ? `<div class="pause-banner" role="status">${icon('clock', 18)} <div><b>Holding for ${e(view.missing.join(', '))}.</b> The mission clock is paused. Reconnect within <span id="pause-clock">${Math.ceil(view.pauseRemainingMs / 1000)}</span> seconds.</div></div>` : ''}
+    ${ended ? resultView(view, ui) : view.phase === 'between' ? betweenView(view, ui) : `<div class="game-layout">${consoleView(view, ui)}${intelView(view, ui)}</div>`}
+    ${latest ? `<div class="event-ticker event-${e(latest.kind)}" role="status">${icon(latest.kind === 'error' ? 'warning' : latest.kind === 'success' ? 'check' : 'signal', 15)}<span>${e(latest.text)}</span><span class="event-time">MISSION LOG</span></div>` : ''}
+    <div class="comms-layout">${chatView(view, ui)}${briefingView(view)}</div>
+    </main>`;
+}
+function roomView(view, ui) {
+  return `${header(ui, view)}${view.phase === 'lobby' ? lobbyView(view, ui) : missionView(view, ui)}<footer class="site-footer"><span>${view.mode === 'training' ? 'LOCAL SIMULATION / NO OTHER PLAYERS CONNECTED' : 'PRIVATE CREW LINK / DO NOT SHARE YOUR SESSION TOKEN'}</span><span>EVERY SIGNAL MATTERS.</span></footer>`;
+}
+function helpView() {
+  return `<dialog id="help-dialog" aria-labelledby="help-title"><button class="icon-button dialog-close" data-action="close-help" aria-label="Close instructions">${icon('x')}</button><span class="eyebrow">MERIDIAN / FLIGHT MANUAL</span><h2 id="help-title">Communication is<br>your best instrument.</h2><p>Signal Lost is a cooperative escape game for <b>2-4 players</b>. Recover four systems in <b>8 minutes</b>. Everyone shares the same clock.</p><div class="help-sections"><section><span>01</span><div><h3>Start together.</h3><p>Choose callsigns, join the same six-character room, and mark everyone ready. The captain launches the mission.</p></div></section><section><span>02</span><div><h3>Two different jobs.</h3><p>The operator sees and controls the console. Other players get private clues. Read the console and clues to each other in text chat or on your own voice call. The operator changes each system.</p></div></section><section><span>03</span><div><h3>Protect your time.</h3><p>Wrong answers cost 20 seconds. Hints cost 15 seconds each, with two available per system. The captain activates the next system; the clock keeps running between systems.</p></div></section><section><span>04</span><div><h3>A dropped signal is not the end.</h3><p>A disconnected crew member pauses the mission for up to 60 seconds. Keep the same browser tab to recover your seat. Leaving deliberately ends the current mission.</p></div></section></div><div class="inline-note">Solo training is a local simulation. You operate all consoles and see every clue. Optional OpenAI briefings add story only; they do not set the puzzle rules. Press ? at any time to open this manual. Sound preferences are saved on this device.</div><button class="button button-primary full" data-action="close-help">Understood. Let's find the signal. ${icon('arrow', 18)}</button></dialog>`;
+}
+
+
+// --- src/app.js ---
+
+
+
+
+
+const appRoot = document.getElementById('app');
+const safeRead = (store, key) => { try { return window[store].getItem(key); } catch { return null; } };
+const safeWrite = (store, key, value) => { try { value === null ? window[store].removeItem(key) : window[store].setItem(key, value); } catch { /* Private browsing may disable storage. */ } };
+const initialCode = new URLSearchParams(location.search).get('room') || '';
+const ui = {
+  name: safeRead('localStorage', 'signal-callsign') || '', code: initialCode.toUpperCase().slice(0, 6),
+  homeMode: initialCode ? 'join' : 'host', offline: Boolean(window.__SIGNAL_OFFLINE__),
+  busy: false, connected: false, restoring: false, sound: safeRead('localStorage', 'signal-sound') === 'on',
+  answer: '', sequence: [], chat: '', notes: '', help: false, toast: null,
+};
+let view = null, training = null, fingerprint = '', latestReceived = performance.now();
+let toastTimer, audioContext, lastClockAlert = null;
+const network = new Network({
+  onState: receiveView,
+  onConnection(connected) { ui.connected = connected; render(); },
+  onExpired(message) { returnHome(); showToast(message, 'error'); },
+});
+
+function displayFingerprint(next) {
+  const { remainingMs, serverNow, pauseRemainingMs, ...rest } = next;
+  return JSON.stringify(rest);
+}
+function receiveView(next) {
+  if (view && next.code === view.code && next.serverNow < view.serverNow) return;
+  const changedModule = !view || view.code !== next.code || view.index !== next.index || view.phase !== next.phase;
+  const latestEvent = next.events[next.events.length - 1];
+  const previousEvent = view?.events[view.events.length - 1];
+  if (latestEvent && previousEvent && latestEvent.id !== previousEvent.id) {
+    if (latestEvent.kind === 'success') beep(600, .12);
+    else if (latestEvent.kind === 'error') beep(160, .2);
+  }
+  if (changedModule) { ui.answer = ''; ui.sequence = []; ui.notes = ''; lastClockAlert = null; if (view && next.phase === 'playing') beep(730, .18); }
+  view = next; latestReceived = performance.now(); ui.restoring = false;
+  if (next.mode === 'training') ui.connected = true;
+  const updatedFingerprint = displayFingerprint(next);
+  if (fingerprint !== updatedFingerprint || changedModule) { fingerprint = updatedFingerprint; render(); }
+  updateClock();
+  if (changedModule) window.scrollTo({ top: 0, behavior: 'instant' });
+}
+function render() {
+  const focused = document.activeElement;
+  const focusId = focused?.id;
+  const focusKey = focused?.dataset?.focus;
+  let selection = null;
+  try { if (focused instanceof HTMLInputElement) selection = [focused.selectionStart, focused.selectionEnd]; } catch { /* Non-text input. */ }
+  const oldChat = document.getElementById('chat-scroll');
+  const chatAtBottom = !oldChat || oldChat.scrollHeight - oldChat.scrollTop - oldChat.clientHeight < 60;
+  const chatScroll = oldChat?.scrollTop;
+  appRoot.innerHTML = (ui.restoring && !view ? `${header(ui)}<main class="startup-loading"><div class="loading-dot"></div><h2>Recovering your signal.</h2><p>Reconnecting to your station and restoring your seat.</p><button class="button button-secondary" data-action="abandon-session">Start a new connection</button></main>` : view ? roomView(view, ui) : homeView(ui)) +
+    (ui.toast ? `<div id="toast" class="toast-${ui.toast.type}" role="${ui.toast.type === 'error' ? 'alert' : 'status'}">${escapeHtml(ui.toast.message)}</div>` : '') +
+    (ui.help ? helpView() : '');
+  if (ui.help) {
+    const dialog = document.getElementById('help-dialog');
+    dialog.showModal();
+    dialog.addEventListener('cancel', () => { ui.help = false; }, { once: true });
+    dialog.addEventListener('click', event => {
+      if (event.target === dialog) { const r = dialog.getBoundingClientRect(); if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) { ui.help = false; render(); } }
+    });
+  } else {
+    const nextFocus = focusId ? document.getElementById(focusId) : focusKey ? document.querySelector(`[data-focus="${CSS.escape(focusKey)}"]`) : null;
+    if (nextFocus && !nextFocus.disabled) {
+      nextFocus.focus({ preventScroll: true });
+      if (selection && nextFocus.setSelectionRange) try { nextFocus.setSelectionRange(...selection); } catch { /* No selection API. */ }
+    }
+  }
+  const newChat = document.getElementById('chat-scroll');
+  if (newChat) newChat.scrollTop = chatAtBottom ? newChat.scrollHeight : chatScroll || 0;
+  updateClock();
+}
+function updateClock() {
+  if (!view) return;
+  const elapsed = performance.now() - latestReceived;
+  const counting = (view.phase === 'playing' || view.phase === 'between') && !view.paused && (ui.connected || view.mode === 'training');
+  const ms = Math.max(0, view.remainingMs - (counting ? elapsed : 0));
+  const clock = document.getElementById('mission-clock');
+  if (clock) { clock.textContent = formatTime(ms); clock.parentElement.classList.toggle('critical', ms < 60000); }
+  const meter = document.getElementById('timer-fill');
+  if (meter) meter.style.width = `${Math.max(0, ms / 480000 * 100)}%`;
+  // One alert per threshold per mission stage, even during frequent clock refreshes.
+  if (counting && ms > 0 && (ms <= 10000 || ms <= 30000 || ms <= 60000)) {
+    const threshold = ms <= 10000 ? 10 : ms <= 30000 ? 30 : 60;
+    if (lastClockAlert !== threshold) { lastClockAlert = threshold; beep(threshold === 10 ? 900 : 480, .15); }
+  }
+  const pause = document.getElementById('pause-clock');
+  if (pause) pause.textContent = String(Math.max(0, Math.ceil((view.pauseRemainingMs - elapsed) / 1000)));
+}
+function showToast(message, type = 'info') {
+  clearTimeout(toastTimer); ui.toast = { message, type }; render();
+  toastTimer = setTimeout(() => { ui.toast = null; render(); }, 5200);
+}
+function beep(frequency = 420, duration = .07) {
+  if (!ui.sound) return;
+  try {
+    audioContext ||= new (window.AudioContext || window.webkitAudioContext)();
+    audioContext.resume();
+    const oscillator = audioContext.createOscillator(), gain = audioContext.createGain();
+    oscillator.frequency.value = frequency; oscillator.type = 'sine';
+    gain.gain.setValueAtTime(.05, audioContext.currentTime);
+    gain.gain.exponentialRampToValueAtTime(.001, audioContext.currentTime + duration);
+    oscillator.connect(gain); gain.connect(audioContext.destination);
+    oscillator.start(); oscillator.stop(audioContext.currentTime + duration);
+    oscillator.onended = () => { oscillator.disconnect(); gain.disconnect(); };
+  } catch { /* Audio is optional. */ }
+}
+async function copyText(text, success) {
+  try {
+    if (navigator.clipboard && window.isSecureContext) await navigator.clipboard.writeText(text);
+    else {
+      const textarea = document.createElement('textarea'); textarea.value = text;
+      textarea.style.position = 'fixed'; textarea.style.opacity = '0'; document.body.append(textarea); textarea.select();
+      const copied = document.execCommand('copy'); textarea.remove();
+      if (!copied) throw new Error('Clipboard unavailable');
+    }
+    showToast(success);
+  } catch { showToast(`Clipboard unavailable. Copy this: ${text}`); }
+}
+function returnHome() {
+  training?.stop(); training = null; network.stop();
+  safeWrite('sessionStorage', 'signal-session', null);
+  view = null; fingerprint = ''; ui.restoring = false; ui.connected = false; ui.busy = false;
+  ui.answer = ''; ui.sequence = []; ui.chat = ''; ui.help = false;
+  render(); window.scrollTo({ top: 0, behavior: 'instant' });
+}
+function startTraining() {
+  network.stop(); training?.stop(); view = null; fingerprint = ''; ui.restoring = false; ui.busy = false;
+  safeWrite('sessionStorage', 'signal-session', null);
+  training = new Training(ui.name.trim().slice(0, 18) || 'CADET', receiveView);
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+async function command(event, payload = {}) {
+  if (ui.busy) return;
+  if (!ui.connected && view?.mode !== 'training') { showToast('Wait for your crew link to reconnect.', 'error'); return; }
+  ui.busy = true; render();
+  try { await (training ? training.action(event, payload) : network.action(event, payload)); }
+  catch (error) { showToast(error.message || 'The command could not be sent.', 'error'); }
+  finally { ui.busy = false; render(); }
+}
+async function connectCrew() {
+  if (ui.offline) { showToast('This file is solo training. Run the full project for multiplayer.'); return; }
+  if (ui.busy) return;
+  const name = ui.name.trim();
+  if (!name || name.length > 18) { showToast('Choose a callsign with 1-18 characters.', 'error'); return; }
+  ui.busy = true; render();
+  try {
+    const result = ui.homeMode === 'join' ? await network.join(name, ui.code.trim()) : await network.create(name);
+    safeWrite('localStorage', 'signal-callsign', name);
+    safeWrite('sessionStorage', 'signal-session', JSON.stringify(result.session));
+    receiveView(result.view);
+    network.connect(result.session);
+  } catch (error) { showToast(error.message || 'Could not reach the station. Is the server running?', 'error'); }
+  finally { ui.busy = false; render(); }
+}
+function submitAnswer() {
+  if (!view?.current) return;
+  const answer = view.current.kind === 'sequence' ? ui.sequence.join(',') : ui.answer;
+  return command('answer', { moduleId: view.current.id, answer });
+}
+appRoot.addEventListener('input', event => {
+  const target = event.target;
+  if (target.id === 'callsign') ui.name = target.value;
+  else if (target.id === 'room-code') { ui.code = target.value.toUpperCase().replace(/[^A-Z0-9]/g, ''); target.value = ui.code; }
+  else if (target.id === 'chat-message') ui.chat = target.value;
+  else if (target.id === 'crew-scratchpad') ui.notes = target.value.slice(0, 500);
+  else if (target.id === 'numeric-answer') {
+    ui.answer = target.value.replace(/\D/g, ''); target.value = ui.answer;
+    const submit = document.getElementById('numeric-submit');
+    if (submit) submit.disabled = ui.answer.length !== (view.current.kind === 'frequency' ? 3 : 4) || ui.busy || view.paused || !ui.connected;
+  }
+});
+appRoot.addEventListener('submit', async event => {
+  event.preventDefault();
+  if (event.target.id === 'connect-form') await connectCrew();
+  else if (event.target.id === 'answer-form') await submitAnswer();
+  else if (event.target.id === 'chat-form') {
+    const text = ui.chat.trim(); if (!text || ui.busy) return;
+    const previous = ui.chat; ui.chat = '';
+    // Chat errors retain the unsent text so a brief outage does not lose it.
+    try { await network.action('chat', { text }); }
+    catch (error) { ui.chat = previous; showToast(error.message, 'error'); }
+    render(); document.getElementById('chat-message')?.focus({ preventScroll: true });
+  }
+});
+appRoot.addEventListener('click', async event => {
+  const button = event.target.closest('[data-action]');
+  if (!button || button.disabled) return;
+  const action = button.dataset.action; event.preventDefault();
+  if (action === 'host-tab' || action === 'join-tab') { ui.homeMode = action === 'host-tab' ? 'host' : 'join'; render(); }
+  else if (action === 'help') { ui.help = true; render(); }
+  else if (action === 'close-help') { ui.help = false; render(); }
+  else if (action === 'sound') { ui.sound = !ui.sound; safeWrite('localStorage', 'signal-sound', ui.sound ? 'on' : 'off'); beep(500, .1); render(); }
+  else if (action === 'training' || action === 'replay') startTraining();
+  else if (action === 'ready') await command('ready', { ready: !view.players.find(p => p.id === view.meId)?.ready });
+  else if (['start', 'next', 'hint', 'reset'].includes(action)) await command(action);
+  else if (action === 'glyph') {
+    const value = button.dataset.value;
+    if (ui.sequence.includes(value)) ui.sequence = ui.sequence.filter(s => s !== value);
+    else if (ui.sequence.length < 4) ui.sequence.push(value);
+    else { showToast('Four slots are full. Deselect a symbol or clear the sequence.'); return; }
+    beep(); render();
+  } else if (action === 'coordinate') { ui.answer = button.dataset.value; beep(); render(); }
+  else if (action === 'clear-answer') { ui.sequence = []; ui.answer = ''; render(); }
+  else if (action === 'submit-answer') await submitAnswer();
+  else if (action === 'copy-code') await copyText(view.code, 'Room code copied. Send it to your crew.');
+  else if (action === 'copy-invite') {
+    const link = `${location.origin}/?room=${encodeURIComponent(view.code)}`;
+    await copyText(link, 'Invite link copied. Teammates can open it on their own devices.');
+  } else if (action === 'share-result') {
+    await copyText(`SIGNAL LOST | ${view.mode === 'training' ? 'Solo training' : `${view.players.length}-player crew`} | ${view.phase === 'won' ? 'Crew recovered' : 'Mission incomplete'} | ${view.completed.length}/4 systems | ${formatTime(view.remainingMs)} remaining | ${view.mistakes} mistakes | ${view.totalHints} hints | ${missionGrade(view).rank} (${missionGrade(view).label})`, 'Mission report copied.');
+  } else if (action === 'abandon-session') returnHome();
+  else if (action === 'leave' || action === 'brand') {
+    if (view && !window.confirm(view.mode === 'training' ? 'Leave this training simulation?' : 'Leave the crew? Leaving during a mission ends it for everyone.')) return;
+    if (view && !training && network.session) {
+      try { await network.action('leave'); } catch { /* Disconnect still reserves a seat briefly; server expires it. */ }
+    }
+    returnHome();
+  }
+});
+
+// Accessible shortcuts: ? opens the manual, Escape closes it. Ignore text fields.
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && ui.help) { ui.help = false; render(); return; }
+  if (event.key !== '?' || event.altKey || event.ctrlKey || event.metaKey ||
+      event.target.closest('input, textarea, select, [contenteditable="true"]')) return;
+  event.preventDefault(); ui.help = !ui.help; render();
+});
+setInterval(updateClock, 250);
+render();
+if (!ui.offline) {
+  let saved = null;
+  try { saved = JSON.parse(safeRead('sessionStorage', 'signal-session') || 'null'); } catch { /* Discard malformed state. */ }
+  if (saved && typeof saved.token === 'string' && /^[a-f0-9]{64}$/.test(saved.token) && typeof saved.code === 'string') {
+    ui.restoring = true; render(); network.connect(saved);
+  }
+}
+
+</script></body></html>
