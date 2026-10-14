@@ -10,8 +10,18 @@ import { BriefingService, MissionDirector } from './briefing.js';
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
 const ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 const STATIC_FILES = new Set([
-  'index.html', 'src/app.js', 'src/styles.css', 'src/icons.js', 'src/network.js',
-  'src/training.js', 'src/views.js', 'shared/puzzles.js', 'shared/engine.js', 'public/favicon.svg',
+  'index.html',
+  'src/app.js',
+  'src/styles.css',
+  'src/icons.js',
+  'src/network.js',
+  'src/training.js',
+  'src/views.js',
+  'shared/puzzles.js',
+  'shared/engine.js',
+  'shared/score.js',
+  'public/favicon.svg',
+
 ]);
 class HttpError extends Error {
   constructor(message, status = 400) { super(message); this.status = status; }
