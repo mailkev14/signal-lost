@@ -1,0 +1,278 @@
+
+> signal-lost@0.1.0 test
+> node --test tests/*.test.js
+
+TAP version 13
+# Subtest: no key or disabled AI uses a written briefing without a network call
+ok 1 - no key or disabled AI uses a written briefing without a network call
+  ---
+  duration_ms: 0.95712
+  type: 'test'
+  ...
+# Subtest: structured Responses request is server-only, schema-constrained, bounded, and not stored
+ok 2 - structured Responses request is server-only, schema-constrained, bounded, and not stored
+  ---
+  duration_ms: 21.119865
+  type: 'test'
+  ...
+# Subtest: provider errors, refusals, malformed output and overlong text fall back safely
+ok 3 - provider errors, refusals, malformed output and overlong text fall back safely
+  ---
+  duration_ms: 1.811996
+  type: 'test'
+  ...
+# Subtest: hourly budget counts failed attempts and recovers after the hour
+ok 4 - hourly budget counts failed attempts and recovers after the hour
+  ---
+  duration_ms: 0.502716
+  type: 'test'
+  ...
+# Subtest: launch requires two connected, ready players and captain authority
+ok 5 - launch requires two connected, ready players and captain authority
+  ---
+  duration_ms: 4.602743
+  type: 'test'
+  ...
+# Subtest: joining resets readiness, caps the crew at four, and blocks mid-mission joins
+ok 6 - joining resets readiness, caps the crew at four, and blocks mid-mission joins
+  ---
+  duration_ms: 0.532481
+  type: 'test'
+  ...
+# Subtest: 2-player privacy: no answers, operator-only readout, non-overlapping crew intel
+ok 7 - 2-player privacy: no answers, operator-only readout, non-overlapping crew intel
+  ---
+  duration_ms: 1.214977
+  type: 'test'
+  ...
+# Subtest: 2-player full mission rotates operators and freezes a successful result
+ok 8 - 2-player full mission rotates operators and freezes a successful result
+  ---
+  duration_ms: 0.992553
+  type: 'test'
+  ...
+# Subtest: 3-player privacy: no answers, operator-only readout, non-overlapping crew intel
+ok 9 - 3-player privacy: no answers, operator-only readout, non-overlapping crew intel
+  ---
+  duration_ms: 0.439652
+  type: 'test'
+  ...
+# Subtest: 3-player full mission rotates operators and freezes a successful result
+ok 10 - 3-player full mission rotates operators and freezes a successful result
+  ---
+  duration_ms: 0.609547
+  type: 'test'
+  ...
+# Subtest: 4-player privacy: no answers, operator-only readout, non-overlapping crew intel
+ok 11 - 4-player privacy: no answers, operator-only readout, non-overlapping crew intel
+  ---
+  duration_ms: 0.448324
+  type: 'test'
+  ...
+# Subtest: 4-player full mission rotates operators and freezes a successful result
+ok 12 - 4-player full mission rotates operators and freezes a successful result
+  ---
+  duration_ms: 0.447603
+  type: 'test'
+  ...
+# Subtest: only the current operator may answer; stale module commands are rejected
+ok 13 - only the current operator may answer; stale module commands are rejected
+  ---
+  duration_ms: 0.602456
+  type: 'test'
+  ...
+# Subtest: malformed input has no penalty; valid wrong answers cost 20 seconds and have a cooldown
+ok 14 - malformed input has no penalty; valid wrong answers cost 20 seconds and have a cooldown
+  ---
+  duration_ms: 1.13021
+  type: 'test'
+  ...
+# Subtest: hints cost 15 seconds, respect a cooldown, and cap at two per system
+ok 15 - hints cost 15 seconds, respect a cooldown, and cap at two per system
+  ---
+  duration_ms: 0.442676
+  type: 'test'
+  ...
+# Subtest: disconnect pauses the clock; reconnect restores the reserved identity and clock
+ok 16 - disconnect pauses the clock; reconnect restores the reserved identity and clock
+  ---
+  duration_ms: 0.596657
+  type: 'test'
+  ...
+# Subtest: disconnect grace cannot be renewed by another offline player or late reconnect
+ok 17 - disconnect grace cannot be renewed by another offline player or late reconnect
+  ---
+  duration_ms: 0.414964
+  type: 'test'
+  ...
+# Subtest: captain transfers on disconnect and when the first player returns to an empty station
+ok 18 - captain transfers on disconnect and when the first player returns to an empty station
+  ---
+  duration_ms: 0.265008
+  type: 'test'
+  ...
+# Subtest: deadline is authoritative even when an answer arrives before the next interval tick
+ok 19 - deadline is authoritative even when an answer arrives before the next interval tick
+  ---
+  duration_ms: 0.374153
+  type: 'test'
+  ...
+# Subtest: a disconnect at the deadline cannot pause an already expired mission
+ok 20 - a disconnect at the deadline cannot pause an already expired mission
+  ---
+  duration_ms: 0.292299
+  type: 'test'
+  ...
+# Subtest: a penalty can immediately end the mission
+ok 21 - a penalty can immediately end the mission
+  ---
+  duration_ms: 0.303967
+  type: 'test'
+  ...
+# Subtest: deliberately leaving an active mission fails it for everyone
+ok 22 - deliberately leaving an active mission fails it for everyone
+  ---
+  duration_ms: 0.299952
+  type: 'test'
+  ...
+# Subtest: lobby reset clears mission identity, old puzzles and readiness
+ok 23 - lobby reset clears mission identity, old puzzles and readiness
+  ---
+  duration_ms: 0.303206
+  type: 'test'
+  ...
+# Subtest: chat is length-limited and bounded; commands are validated
+ok 24 - chat is length-limited and bounded; commands are validated
+  ---
+  duration_ms: 1.607918
+  type: 'test'
+  ...
+# Subtest: training is explicitly identified and exposes all intel to the local operator
+ok 25 - training is explicitly identified and exposes all intel to the local operator
+  ---
+  duration_ms: 0.280001
+  type: 'test'
+  ...
+# Subtest: 1,000 generated missions have four valid, independently solvable puzzles
+ok 26 - 1,000 generated missions have four valid, independently solvable puzzles
+  ---
+  duration_ms: 27.910218
+  type: 'test'
+  ...
+# Subtest: reactor constraints have exactly one solution among all distinct four-symbol sequences
+ok 27 - reactor constraints have exactly one solution among all distinct four-symbol sequences
+  ---
+  duration_ms: 16.624954
+  type: 'test'
+  ...
+# Subtest: all pin transformations and leading-zero answers occur across the generator
+ok 28 - all pin transformations and leading-zero answers occur across the generator
+  ---
+  duration_ms: 6.364432
+  type: 'test'
+  ...
+# Subtest: answer validation rejects malformed input without accepting alternate formats
+ok 29 - answer validation rejects malformed input without accepting alternate formats
+  ---
+  duration_ms: 0.401384
+  type: 'test'
+  ...
+# Subtest: secure RNG validates bounds and stays in bounds
+ok 30 - secure RNG validates bounds and stays in bounds
+  ---
+  duration_ms: 2.548173
+  type: 'test'
+  ...
+# Subtest: 2 independent HTTP/SSE clients finish a private, synchronized mission
+ok 31 - 2 independent HTTP/SSE clients finish a private, synchronized mission
+  ---
+  duration_ms: 209.724515
+  type: 'test'
+  ...
+# Subtest: 4 independent HTTP/SSE clients finish a private, synchronized mission
+ok 32 - 4 independent HTTP/SSE clients finish a private, synchronized mission
+  ---
+  duration_ms: 229.394824
+  type: 'test'
+  ...
+# Subtest: invalid tokens cannot subscribe or control a room; origin checks block cross-site commands
+ok 33 - invalid tokens cannot subscribe or control a room; origin checks block cross-site commands
+  ---
+  duration_ms: 40.885634
+  type: 'test'
+  ...
+# Subtest: a reconnect reuses the authenticated seat and resumes the shared mission clock
+ok 34 - a reconnect reuses the authenticated seat and resumes the shared mission clock
+  ---
+  duration_ms: 217.51988
+  type: 'test'
+  ...
+# Subtest: duplicate commands do not double-charge penalties or post duplicate chat
+ok 35 - duplicate commands do not double-charge penalties or post duplicate chat
+  ---
+  duration_ms: 45.912484
+  type: 'test'
+  ...
+# Subtest: client-supplied player and room identifiers cannot override session authority
+ok 36 - client-supplied player and room identifiers cannot override session authority
+  ---
+  duration_ms: 57.542075
+  type: 'test'
+  ...
+# Subtest: chat reaches all crew and retains literal markup rather than executing it
+ok 37 - chat reaches all crew and retains literal markup rather than executing it
+  ---
+  duration_ms: 53.218084
+  type: 'test'
+  ...
+# Subtest: static allowlist never serves server source, tests, environment files or traversal paths
+ok 38 - static allowlist never serves server source, tests, environment files or traversal paths
+  ---
+  duration_ms: 26.131578
+  type: 'test'
+  ...
+# Subtest: captain can replay after an expired mission; no additional players can join during play
+ok 39 - captain can replay after an expired mission; no additional players can join during play
+  ---
+  duration_ms: 128.706044
+  type: 'test'
+  ...
+# Subtest: explicit leave ends the mission and invalidates the departing token
+ok 40 - explicit leave ends the mission and invalidates the departing token
+  ---
+  duration_ms: 74.94749
+  type: 'test'
+  ...
+# Subtest: callsigns, input values and chat are escaped in rendered templates
+ok 41 - callsigns, input values and chat are escaped in rendered templates
+  ---
+  duration_ms: 3.447094
+  type: 'test'
+  ...
+# Subtest: clock rounds up, clamps zero and formats whole minutes
+ok 42 - clock rounds up, clamps zero and formats whole minutes
+  ---
+  duration_ms: 0.513423
+  type: 'test'
+  ...
+# Subtest: expert view contains private intel but never operative controls
+ok 43 - expert view contains private intel but never operative controls
+  ---
+  duration_ms: 2.253249
+  type: 'test'
+  ...
+# Subtest: escaping covers quotes, apostrophes and ampersands
+ok 44 - escaping covers quotes, apostrophes and ampersands
+  ---
+  duration_ms: 0.108193
+  type: 'test'
+  ...
+1..44
+# tests 44
+# suites 0
+# pass 44
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1238.06362
